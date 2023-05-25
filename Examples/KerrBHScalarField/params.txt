@@ -42,7 +42,7 @@ scalar_amplitude = 0.1
 
 # Boosted BH initial data, boost in x direction
 bh_mass = 1.0
-bh_velocity = 0.3 # in unit of c (i.e. 0<v<1)
+bh_spin = 0.0 # This is a, so needs to be <= M
 
 ################################################
 # Diagnostic extraction parameters
