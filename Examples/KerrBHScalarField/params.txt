@@ -18,7 +18,7 @@ checkpoint_interval = 100
 # set to -1 to never ever print plotfiles
 plot_interval = 10
 num_plot_vars = 3
-plot_vars = phi_Re rhoLinMom sourceLinMom
+plot_vars = phi_Re rhoEnergy fluxAngMom
 
 # subpaths - specific directories for hdf5, pout, extraction data
 # (these are created at runtime)
@@ -116,8 +116,8 @@ lo_boundary = 3 2 2
 # 4,5,6 = odd xy, yz, xz
 # 7     = odd xyz
 vars_parity            = 0 0 0 0   #phi and Pi (Re and Im)
-vars_parity_diagnostic = 0 0 0     #chi, rhoLinMom and rhoEnergy
-		         0 0 0     #fluxLinMom, fluxEnergy and sourceLinMom
+vars_parity_diagnostic = 0 0 0     #chi, rhoEnergy and rhoAngMom
+		         0 0 0     #sourceAngMom, fluxAngMom and fluxEnergy
 			 
 # if sommerfeld boundaries selected, must select
 # non zero asymptotic values
