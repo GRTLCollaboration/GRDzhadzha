@@ -26,9 +26,6 @@ class BoostedBHScalarLevel : public GRAMRLevel
     // Typedef for scalar field
     typedef ComplexScalarField<ComplexScalarPotential> ScalarFieldWithPotential;
 
-    //! Things to do at the end of the advance step, after RK4 calculation
-    virtual void specificAdvance();
-
     //! Initialize data for the field and metric variables
     virtual void initialData();
 
@@ -38,9 +35,6 @@ class BoostedBHScalarLevel : public GRAMRLevel
 
     // to do post each time step on every level
     virtual void specificPostTimeStep();
-
-    // Any actions that should happen just before plot files output
-    virtual void prePlotLevel();
 
     //! Tell Chombo how to tag cells for regridding
     virtual void computeTaggingCriterion(FArrayBox &tagging_criterion,

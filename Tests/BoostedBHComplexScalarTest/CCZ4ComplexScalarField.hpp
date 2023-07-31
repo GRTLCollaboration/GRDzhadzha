@@ -6,7 +6,7 @@
 #ifndef CCZ4COMPLEXSCALARFIELD_HPP_
 #define CCZ4COMPLEXSCALARFIELD_HPP_
 
-//#include "CCZ4Geometry.hpp"
+// #include "CCZ4Geometry.hpp"
 #include "DefaultPotential.hpp"
 #include "DimensionDefinitions.hpp"
 #include "FourthOrderDerivatives.hpp"

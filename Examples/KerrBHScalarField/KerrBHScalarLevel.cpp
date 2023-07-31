@@ -13,7 +13,7 @@
 #include "SmallDataIO.hpp"
 
 // For tag cells
-#include "TaggingCriterion.hpp"
+#include "FixedGridsTaggingCriterion.hpp"
 
 // Problem specific includes
 #include "AngMomConservation.hpp"
@@ -27,15 +27,6 @@
 #include "ScalarField.hpp"
 #include "ScalarPotential.hpp"
 
-// Things to do at each advance step, after the RK4 is calculated
-void KerrBHScalarLevel::specificAdvance()
-{
-    // Check for nan's
-    if (m_p.nan_check)
-        BoxLoops::loop(NanCheck(), m_state_new, m_state_new, SKIP_GHOST_CELLS,
-                       disable_simd());
-}
-
 // Initial data for field and metric variables
 void KerrBHScalarLevel::initialData()
 {
@@ -47,7 +38,7 @@ void KerrBHScalarLevel::initialData()
     // constraints etc, then initial conditions for fields
     SetValue set_zero(0.0);
     KerrSchild kerr_bh(m_p.bg_params, m_dx); // just calculates chi
-    InitialScalarData initial_sf(m_p.initial_params);
+    InitialScalarData initial_sf(m_p.initial_params, m_dx);
     auto compute_pack = make_compute_pack(set_zero, kerr_bh);
     BoxLoops::loop(compute_pack, m_state_diagnostics, m_state_diagnostics,
                    SKIP_GHOST_CELLS);
@@ -58,9 +49,6 @@ void KerrBHScalarLevel::initialData()
                        m_dx, m_p.center, kerr_bh),
                    m_state_new, m_state_new, SKIP_GHOST_CELLS, disable_simd());
 }
-
-// Things to do before outputting a plot file
-void KerrBHScalarLevel::prePlotLevel() {}
 
 // Things to do in RHS update, at each RK4 step
 void KerrBHScalarLevel::specificEvalRHS(GRLevelData &a_soln, GRLevelData &a_rhs,
@@ -84,10 +72,15 @@ void KerrBHScalarLevel::specificEvalRHS(GRLevelData &a_soln, GRLevelData &a_rhs,
 
 void KerrBHScalarLevel::specificPostTimeStep()
 {
-    // At any level, but after the coarsest timestep
-    int min_level = 0;
-    bool calculate_quantities = at_level_timestep_multiple(min_level);
-    if (calculate_quantities)
+    // Check for nans on every level
+    if (m_p.nan_check)
+        BoxLoops::loop(NanCheck(), m_state_new, m_state_new, SKIP_GHOST_CELLS,
+                       disable_simd());
+
+    // At any level, but after the min_level timestep
+    int min_level = m_p.extraction_params.min_extraction_level();
+    bool calculate_diagnostics = at_level_timestep_multiple(min_level);
+    if (calculate_diagnostics)
     {
         fillAllGhosts();
         ScalarPotential potential(m_p.initial_params);
@@ -108,17 +101,16 @@ void KerrBHScalarLevel::specificPostTimeStep()
             disable_simd());
     }
 
-    // write out the integral after each coarse timestep
+    // write out the integral after each timestep on minimum level
     if (m_p.activate_extraction == 1)
     {
-        if (m_level == 0)
+        if (m_level == min_level)
         {
             bool first_step = (m_time == m_dt);
             // integrate the densities and write to a file
             AMRReductions<VariableType::diagnostic> amr_reductions(m_gr_amr);
             double rhoEnergy_sum = amr_reductions.sum(c_rhoEnergy);
             double rhoAngMom_sum = amr_reductions.sum(c_rhoAngMom);
-            double sourceAngMom_sum = amr_reductions.sum(c_sourceAngMom);
 
             SmallDataIO integral_file("VolumeIntegrals", m_dt, m_time,
                                       m_restart_time, SmallDataIO::APPEND,
@@ -126,15 +118,14 @@ void KerrBHScalarLevel::specificPostTimeStep()
             // remove any duplicate data if this is post restart
             integral_file.remove_duplicate_time_data();
 
-            std::vector<double> data_for_writing = {
-                rhoEnergy_sum, rhoAngMom_sum, sourceAngMom_sum};
+            std::vector<double> data_for_writing = {rhoEnergy_sum,
+                                                    rhoAngMom_sum};
 
             // write data
             if (first_step)
             {
-                integral_file.write_header_line({"Energy density",
-                                                 "Ang. Mom. density",
-                                                 "Ang. Mom. source"});
+                integral_file.write_header_line(
+                    {"Energy density", "Ang. Mom. density"});
             }
             integral_file.write_time_data_line(data_for_writing);
 
@@ -153,6 +144,6 @@ void KerrBHScalarLevel::specificPostTimeStep()
 void KerrBHScalarLevel::computeTaggingCriterion(FArrayBox &tagging_criterion,
                                                 const FArrayBox &current_state)
 {
-    BoxLoops::loop(TaggingCriterion(m_dx, m_level, m_p.L, m_p.center),
+    BoxLoops::loop(FixedGridsTaggingCriterion(m_dx, m_level, m_p.L, m_p.center),
                    current_state, tagging_criterion);
 }

@@ -14,7 +14,6 @@ enum
     c_rhoEnergy,
     c_fluxAngMom,
     c_fluxEnergy,
-    c_sourceAngMom,
 
     NUM_DIAGNOSTIC_VARS
 };
@@ -22,8 +21,7 @@ enum
 namespace DiagnosticVariables
 {
 static const std::array<std::string, NUM_DIAGNOSTIC_VARS> variable_names = {
-    "chi",        "rhoAngMom",  "rhoEnergy",
-    "fluxAngMom", "fluxEnergy", "sourceAngMom"};
+    "chi", "rhoAngMom", "rhoEnergy", "fluxAngMom", "fluxEnergy"};
 }
 
 #endif /* DIAGNOSTICVARIABLES_HPP */

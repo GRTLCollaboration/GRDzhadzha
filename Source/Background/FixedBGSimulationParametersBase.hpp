@@ -46,31 +46,11 @@ class FixedBGSimulationParametersBase : public ChomboParameters
         if (activate_extraction)
         {
             pp.load("num_extraction_radii",
-                    extraction_params.num_extraction_radii, 1);
-            // Check for multiple extraction radii, otherwise load single
-            // radius/level (for backwards compatibility).
-            if (pp.contains("extraction_levels"))
-            {
-                pp.load("extraction_levels",
-                        extraction_params.extraction_levels,
-                        extraction_params.num_extraction_radii);
-            }
-            else
-            {
-                pp.load("extraction_level", extraction_params.extraction_levels,
-                        1, 0);
-            }
-            if (pp.contains("extraction_radii"))
-            {
-                pp.load("extraction_radii", extraction_params.extraction_radii,
-                        extraction_params.num_extraction_radii);
-            }
-            else
-            {
-                pp.load("extraction_radius", extraction_params.extraction_radii,
-                        1, 0.1);
-            }
-
+                    extraction_params.num_extraction_radii, 2);
+            pp.load("extraction_levels", extraction_params.extraction_levels,
+                    extraction_params.num_extraction_radii);
+            pp.load("extraction_radii", extraction_params.extraction_radii,
+                    extraction_params.num_extraction_radii);
             pp.load("num_points_phi", extraction_params.num_points_phi, 2);
             pp.load("num_points_theta", extraction_params.num_points_theta, 5);
             if (extraction_params.num_points_theta % 2 == 0)
@@ -117,11 +97,6 @@ class FixedBGSimulationParametersBase : public ChomboParameters
 
     void check_params()
     {
-        check_parameter("dt_multiplier", dt_multiplier, dt_multiplier < 1.0,
-                        "must be < 1.0 for stability");
-        warn_parameter("dt_multiplier", dt_multiplier, dt_multiplier <= 0.5,
-                       "is unlikely to be stable for > 0.5");
-
         check_parameter("sigma", sigma,
                         (sigma >= 0.0) && (sigma <= 2.0 / dt_multiplier),
                         "must be >= 0.0 and <= 2 / dt_multiplier for stability "

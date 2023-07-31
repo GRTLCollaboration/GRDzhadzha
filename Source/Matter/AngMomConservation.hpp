@@ -112,28 +112,8 @@ template <class matter_t, class background_t> class AngMomConservation
         // as that's accounted for in the SprericalExtraction
         fluxAngMom *= dArea / r2sintheta;
 
-        Tensor<1, data_t> sourceLM; // TEMP LIN MOM
-        FOR1(i)
-        {
-            sourceLM[i] = -emtensor.rho * metric_vars.d1_lapse[i];
-
-            FOR1(j)
-            {
-                sourceLM[i] += emtensor.Si[j] * metric_vars.d1_shift[j][i];
-                FOR2(k, l)
-                {
-                    sourceLM[i] += metric_vars.lapse * gamma_UU[k][l] *
-                                   emtensor.Sij[k][j] * chris_phys.ULL[j][l][i];
-                }
-            }
-            sourceAngMom += sourceLM[i] * dxdphi[i];
-        }
-
-        sourceAngMom = sourceAngMom * sqrt(det_gamma);
-
         current_cell.store_vars(rhoAngMom, c_rhoAngMom);
         current_cell.store_vars(fluxAngMom, c_fluxAngMom);
-        current_cell.store_vars(sourceAngMom, c_sourceAngMom);
     }
 };
 

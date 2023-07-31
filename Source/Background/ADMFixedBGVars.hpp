@@ -11,7 +11,8 @@
 #include "VarsTools.hpp"
 
 //! A structure for the decomposed elements of the Energy Momentum Tensor in
-//! 3+1D
+//! 3+1D - in GRChombo this is in CCZ4Geometry so it needs to be reproduced here
+//! (Ideally it should just be moved to TensorAlgebra)
 template <class data_t> struct emtensor_t
 {
     Tensor<2, data_t> Sij; //!< S_ij = T_ij

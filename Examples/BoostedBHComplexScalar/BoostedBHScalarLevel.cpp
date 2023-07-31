@@ -17,7 +17,7 @@
 #include "MatterEvolution.hpp"
 
 // For tag cells
-#include "TaggingCriterion.hpp"
+#include "FixedGridsTaggingCriterion.hpp"
 
 // Problem specific includes
 #include "ComplexScalarField.hpp"
@@ -29,15 +29,6 @@
 #include "InitialScalarData.hpp"
 #include "LinMomConservation.hpp"
 
-// Things to do at each advance step, after the RK4 is calculated
-void BoostedBHScalarLevel::specificAdvance()
-{
-    // Check for nan's
-    if (m_p.nan_check)
-        BoxLoops::loop(NanCheck(), m_state_new, m_state_new, SKIP_GHOST_CELLS,
-                       disable_simd());
-}
-
 // Initial data for field and metric variables
 void BoostedBHScalarLevel::initialData()
 {
@@ -45,18 +36,19 @@ void BoostedBHScalarLevel::initialData()
     if (m_verbosity)
         pout() << "BoostedBHScalarLevel::initialData " << m_level << endl;
 
-    // First set everything to zero ... we don't want undefined values in
-    // constraints etc, then initial conditions for scalar field
+    // First set everything to zero, then set the value of the conformal factor
+    // This is just for the diagnostics
     SetValue set_zero(0.0);
-    BoostedBH boosted_bh(m_p.bg_params, m_dx); // just claculates chi
-    InitialScalarData initial_sf(m_p.initial_params);
+    BoostedBH boosted_bh(m_p.bg_params, m_dx); // just calculates chi
     auto compute_pack = make_compute_pack(set_zero, boosted_bh);
-
     BoxLoops::loop(compute_pack, m_state_diagnostics, m_state_diagnostics,
                    SKIP_GHOST_CELLS);
+
+    // Now set the actual evolution variables
+    InitialScalarData initial_sf(m_p.initial_params);
     BoxLoops::loop(initial_sf, m_state_new, m_state_new, FILL_GHOST_CELLS);
 
-    // excise within horizon, no simd
+    // excise evolution vars within horizon, turn off simd vectorisation
     BoxLoops::loop(ExcisionEvolution<ScalarFieldWithPotential, BoostedBH>(
                        m_dx, m_p.center, boosted_bh),
                    m_state_new, m_state_new, SKIP_GHOST_CELLS, disable_simd());
@@ -64,21 +56,25 @@ void BoostedBHScalarLevel::initialData()
 
 void BoostedBHScalarLevel::specificPostTimeStep()
 {
-    // At any level, but after the coarsest timestep
-    int min_level = 0;
-    bool calculate_quantities = at_level_timestep_multiple(min_level);
+    // Check for nans on every level
+    if (m_p.nan_check)
+        BoxLoops::loop(NanCheck(), m_state_new, m_state_new, SKIP_GHOST_CELLS,
+                       disable_simd());
 
-    if (calculate_quantities)
+    // At any level, but after the timestep on the minimum extraction level
+    int min_level = m_p.extraction_params.min_extraction_level();
+    bool calculate_diagnostics = at_level_timestep_multiple(min_level);
+    if (calculate_diagnostics)
     {
         fillAllGhosts();
         ComplexScalarPotential potential(m_p.initial_params);
         ScalarFieldWithPotential scalar_field(potential);
         BoostedBH boosted_bh(m_p.bg_params, m_dx);
-        EnergyConservation<ScalarFieldWithPotential, BoostedBH> Energies(
+        EnergyConservation<ScalarFieldWithPotential, BoostedBH> energies(
             scalar_field, boosted_bh, m_dx, m_p.center);
-        LinMomConservation<ScalarFieldWithPotential, BoostedBH> LinMomenta(
+        LinMomConservation<ScalarFieldWithPotential, BoostedBH> linear_momenta(
             scalar_field, boosted_bh, m_dx, m_p.center);
-        BoxLoops::loop(make_compute_pack(Energies, LinMomenta), m_state_new,
+        BoxLoops::loop(make_compute_pack(energies, linear_momenta), m_state_new,
                        m_state_diagnostics, SKIP_GHOST_CELLS);
 
         // excise within/outside specified radii, no simd
@@ -89,10 +85,10 @@ void BoostedBHScalarLevel::specificPostTimeStep()
             disable_simd());
     }
 
-    // write out the integral after each coarse timestep
+    // write out the integral after each timestep on the min_level
     if (m_p.activate_extraction == 1)
     {
-        if (m_level == 0)
+        if (m_level == min_level)
         {
             bool first_step = (m_time == m_dt);
             // integrate the densities and write to a file
@@ -101,7 +97,7 @@ void BoostedBHScalarLevel::specificPostTimeStep()
             double rhoLinMom_sum = amr_reductions.sum(c_rhoLinMom);
             double sourceLinMom_sum = amr_reductions.sum(c_sourceLinMom);
 
-            SmallDataIO integral_file("EnMomSourceIntegrals", m_dt, m_time,
+            SmallDataIO integral_file("EnergyIntegrals", m_dt, m_time,
                                       m_restart_time, SmallDataIO::APPEND,
                                       first_step);
             // remove any duplicate data if this is post restart
@@ -120,6 +116,7 @@ void BoostedBHScalarLevel::specificPostTimeStep()
             integral_file.write_time_data_line(data_for_writing);
 
             // Now refresh the interpolator and do the interpolation
+            // only fill the actual ghost cells needed to save time
             bool fill_ghosts = false;
             m_gr_amr.m_interpolator->refresh(fill_ghosts);
             m_gr_amr.fill_multilevel_ghosts(
@@ -131,9 +128,6 @@ void BoostedBHScalarLevel::specificPostTimeStep()
     }
 }
 
-// Things to do before a plot level
-void BoostedBHScalarLevel::prePlotLevel() {}
-
 // Things to do in RHS update, at each RK4 step
 void BoostedBHScalarLevel::specificEvalRHS(GRLevelData &a_soln,
                                            GRLevelData &a_rhs,
@@ -141,13 +135,11 @@ void BoostedBHScalarLevel::specificEvalRHS(GRLevelData &a_soln,
 {
     // Calculate right hand side with matter_t = ScalarField
     // and background_t = BoostedBH
-    // RHS for non evolution vars is zero, to prevent undefined values
     ComplexScalarPotential potential(m_p.initial_params);
     ScalarFieldWithPotential scalar_field(potential);
     BoostedBH boosted_bh(m_p.bg_params, m_dx);
     MatterEvolution<ScalarFieldWithPotential, BoostedBH> my_evolution(
         scalar_field, boosted_bh, m_p.sigma, m_dx, m_p.center);
-
     BoxLoops::loop(my_evolution, a_soln, a_rhs, SKIP_GHOST_CELLS);
 
     // Do excision within horizon
@@ -161,6 +153,6 @@ void BoostedBHScalarLevel::specificEvalRHS(GRLevelData &a_soln,
 void BoostedBHScalarLevel::computeTaggingCriterion(
     FArrayBox &tagging_criterion, const FArrayBox &current_state)
 {
-    BoxLoops::loop(TaggingCriterion(m_dx, m_level, m_p.L, m_p.center),
+    BoxLoops::loop(FixedGridsTaggingCriterion(m_dx, m_level, m_p.L, m_p.center),
                    current_state, tagging_criterion);
 }

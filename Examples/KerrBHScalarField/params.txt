@@ -37,23 +37,19 @@ print_progress_only_to_rank_0 = 1
 # Initial Data parameters
 
 # Scalar field Initial data
-scalar_mass = 0.05
+scalar_mass = 0.1
 scalar_amplitude = 0.1
 
 # Boosted BH initial data, boost in x direction
 bh_mass = 1.0
-bh_spin = 0.0 # This is a, so needs to be <= M
+bh_spin = 0.5 # This is a, so needs to be <= M
 
 ################################################
 # Diagnostic extraction parameters
 
-# For volume integrals
-inner_r = 3.0
-outer_r = 200.0
-
 # For flux (surface) extraction
 activate_extraction = 1
-write_extraction = 0
+# write_extraction = 0
 
 num_extraction_radii = 2
 extraction_levels = 0 0
@@ -61,6 +57,11 @@ extraction_radii = 3.0 200.0
 
 num_points_phi = 36
 num_points_theta = 24
+
+# For volume integrals
+# defaulted to extraction radii values above
+# inner_r = 3.0
+# outer_r = 200.0
 
 #################################################
 # Grid parameters
@@ -73,7 +74,7 @@ num_points_theta = 24
 # 'N2' or 'N2_full' and 'N3' or 'N3_full' ( then dx_coarsest = L/N(max) )
 # NB - the N values need to be multiples of the block_factor
 N1 = 128
-N2 = 64
+N2 = 128
 N3 = 64
 
 L_full = 1024
@@ -107,7 +108,7 @@ isPeriodic = 0 0 0
 # 3 = extrapolating, 4 = mixed
 # (see BoundaryConditions.hpp for details)
 hi_boundary = 3 3 3
-lo_boundary = 3 2 2
+lo_boundary = 3 3 2
 
 # if reflective boundaries selected, must set
 # parity of all vars (in order given by UserVariables.hpp)
