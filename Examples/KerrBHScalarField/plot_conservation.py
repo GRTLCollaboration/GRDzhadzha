@@ -12,12 +12,14 @@ plt.rc('font', family='serif')
 plt.rcParams.update({'figure.figsize'    :  '6, 4.2'})
 plt.rcParams.update({'figure.autolayout': True})
 
+symmetry = 2.0
+
 EMS = np.loadtxt('data/EnergyIntegrals.dat')
 F = np.loadtxt('data/FluxIntegrals.dat')
 timedata = EMS[:,0][1:]
 dt = timedata[1] - timedata[0]
-E = EMS[:,1][1:]*4.
-M = EMS[:,2][1:]*4.
+E = EMS[:,1][1:]*symmetry
+M = EMS[:,2][1:]*symmetry
 E0 = E-E[0]
 M0 = M-M[0]
 FEi = F[:,1]
