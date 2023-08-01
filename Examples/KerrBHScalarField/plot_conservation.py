@@ -46,7 +46,7 @@ plt.plot(timedata,FMi_dt,color='grey',ls='--',
          label=r'$\int \mathcal{F}_{x, {\rm in}}$  dt')
 plt.plot(timedata,-FMo_dt + FMi_dt,'k:',lw=2.,
          label=r'$\int (\mathcal{F}_{x,{\rm in}} - \mathcal{F}_{x,{\rm out}})$ dt')
-plt.xlim(0,2000)
+plt.xlim(0,250)
 plt.legend(ncol=2,fontsize=14, bbox_to_anchor=(0., 0.95, 1., 0.102), loc='lower left')
 plt.xlabel(r'$t/M$', fontsize=14)
 plt.savefig('momentum_conservation.pdf',dpi=256, bbox_inches='tight',pad_inches = 0.1)
@@ -60,7 +60,7 @@ plt.plot(timedata,FEi_dt,color='grey',ls='--',
          label=r'$\int \mathcal{F}_{E,x, {\rm in}}$  dt')
 plt.plot(timedata,-FEo_dt + FEi_dt,'k:',lw=2.,
          label=r'$\int (\mathcal{F}_{E,x,{\rm in}} - \mathcal{F}_{E,x,{\rm out}})$ dt')
-plt.xlim(0,2000)
+plt.xlim(0,250)
 plt.legend(ncol=2,fontsize=14, bbox_to_anchor=(0., 0.95, 1., 0.102), loc='lower left')
 plt.xlabel(r'$t/M$', fontsize=14)
 plt.savefig('energy_conservation.pdf',dpi=256, bbox_inches='tight',pad_inches = 0.1)

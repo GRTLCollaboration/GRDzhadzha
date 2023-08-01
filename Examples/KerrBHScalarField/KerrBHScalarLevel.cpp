@@ -112,7 +112,7 @@ void KerrBHScalarLevel::specificPostTimeStep()
             double rhoEnergy_sum = amr_reductions.sum(c_rhoEnergy);
             double rhoAngMom_sum = amr_reductions.sum(c_rhoAngMom);
 
-            SmallDataIO integral_file(m_p.data_path + "VolumeIntegrals", m_dt,
+            SmallDataIO integral_file(m_p.data_path + "EnergyIntegrals", m_dt,
                                       m_time, m_restart_time,
                                       SmallDataIO::APPEND, first_step);
             // remove any duplicate data if this is post restart
