@@ -100,7 +100,7 @@ template <class matter_t, class background_t> class AngularMomConservation
             }
         }
 
-        // Add the volume factor to account for the spherical surface and 
+        // Add the volume factor to account for the spherical surface and
         // normal vector proper lengths
         fluxAngMom *= sqrt(det_gamma);
 

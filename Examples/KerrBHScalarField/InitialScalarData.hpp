@@ -40,8 +40,8 @@ class InitialScalarData
         data_t radius = coords.get_radius();
 
         // set the field vars
-        vars.phi = m_params.amplitude * exp((radius - 30.0) * (radius - 30.0) /
-                                            0.1 / m_params.mass / m_params.mass);
+        vars.phi =
+            m_params.amplitude * exp(-(radius - 20.0) * (radius - 20.0) / 10.0);
         vars.Pi = 0;
 
         current_cell.store_vars(vars);

@@ -133,7 +133,7 @@ void KerrBHScalarLevel::specificPostTimeStep()
             bool fill_ghosts = false;
             m_gr_amr.m_interpolator->refresh(fill_ghosts);
             m_gr_amr.fill_multilevel_ghosts(
-                VariableType::diagnostic, Interval(c_fluxAngMom, c_fluxEnergy));
+                VariableType::diagnostic, Interval(c_fluxEnergy, c_fluxAngMom));
             FluxExtraction my_extraction(m_p.extraction_params, m_dt, m_time,
                                          m_restart_time);
             my_extraction.execute_query(m_gr_amr.m_interpolator, m_p.data_path);

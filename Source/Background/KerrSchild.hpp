@@ -270,7 +270,7 @@ class KerrSchild
 
         bool is_excised = false;
         // value less than 1 indicates we are within the horizon
-        if (outer_horizon < 0.9 || inner_horizon > 1.05)
+        if (outer_horizon < 0.9 || inner_horizon < 1.05)
         {
             is_excised = true;
         }

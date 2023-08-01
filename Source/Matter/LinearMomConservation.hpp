@@ -94,7 +94,7 @@ template <class matter_t, class background_t> class LinearMomConservation
             }
         }
 
-        // Add the volume factor to account for the spherical surface and 
+        // Add the volume factor to account for the spherical surface and
         // normal vector proper lengths
         fluxLinMom *= sqrt(det_gamma);
 
