@@ -100,9 +100,11 @@ template <class matter_t, class background_t> class AngularMomConservation
             }
         }
 
-        // integration surface element; Divide by r2sintheta,
-        // as that's accounted for in the SprericalExtraction
-        fluxAngMom *= 1.0 / r2sintheta;
+        // The r2sintheta factor is taken into account in the spherical
+        // extraction so remove it here from the integrand, and add the volume
+        // factor to account for the spherical surface and normal vector proper
+        // lengths
+        fluxAngMom *= sqrt(det_gamma) / r2sintheta;
 
         // store values on the grid
         current_cell.store_vars(rhoAngMom, c_rhoAngMom);

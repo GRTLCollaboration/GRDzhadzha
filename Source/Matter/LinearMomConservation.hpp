@@ -43,9 +43,9 @@ template <class matter_t, class background_t> class LinearMomConservation
         : m_matter(a_matter), m_deriv(a_dx), m_dx(a_dx),
           m_background(a_background), m_center(a_center), m_dir(a_dir)
     {
-        if (m_dir > GR_SPACEDIM || m_dir < 0)
+        if (m_dir >= GR_SPACEDIM || m_dir < 0)
         {
-            MayDay::Error("The direction must be 0 (x), 1(y) or 2(z)");
+            MayDay::Error("The direction must be 0(x), 1(y) or 2(z)");
         }
     }
 
@@ -93,9 +93,11 @@ template <class matter_t, class background_t> class LinearMomConservation
                               emtensor.Sij[m_dir][j] * si_L[i];
             }
         }
-        // Divide by r2sintheta, as that's accounted for in the
-        // SphericalExtraction integration
-        fluxLinMom *= 1.0 / r2sintheta;
+        // The r2sintheta factor is taken into account in the spherical
+        // extraction so remove it here from the integrand, and add the volume
+        // factor to account for the spherical surface and normal vector proper
+        // lengths
+        fluxLinMom *= sqrt(det_gamma) / r2sintheta;
 
         // now the source as in eqn (19)
         data_t sourceLinMom = -emtensor.rho * metric_vars.d1_lapse[m_dir];

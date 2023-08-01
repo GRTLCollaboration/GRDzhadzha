@@ -3,6 +3,7 @@ pout.*
 .bashrc
 *.pbs
 *.s
+*.err
 d
 o
 p
