@@ -139,7 +139,7 @@ extrapolation_order = 0
 
 # dt will be dx*dt_multiplier on each grid level
 dt_multiplier = 0.1
-stop_time = 2000.0
+stop_time = 200.0
 # max_steps = 4
 
 nan_check = 1

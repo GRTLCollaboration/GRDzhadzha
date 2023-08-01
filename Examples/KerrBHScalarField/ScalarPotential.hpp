@@ -37,4 +37,4 @@ class ScalarPotential
     }
 };
 
-#endif /* SCALARXPOTENTIAL_HPP_ */
+#endif /* SCALARPOTENTIAL_HPP_ */

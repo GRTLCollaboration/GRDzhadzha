@@ -9,12 +9,12 @@
 // General includes
 #include "BoundaryConditions.hpp"
 #include "ChomboParameters.hpp"
+#include "FilesystemTools.hpp"
 #include "GRParmParse.hpp"
 #include "SphericalExtraction.hpp"
 
-// add this type alias here for backwards compatibility
-using extraction_params_t = SphericalExtraction::params_t;
-
+//! Class to handle the simulations params that are always required in
+//! simulations with a fixed background
 class FixedBGSimulationParametersBase : public ChomboParameters
 {
   public:
@@ -28,7 +28,7 @@ class FixedBGSimulationParametersBase : public ChomboParameters
     void read_params(GRParmParse &pp)
     {
         // Dissipation
-        pp.load("sigma", sigma, 0.1);
+        pp.load("sigma", sigma, 1.0 / dt_multiplier);
 
         // Nan Check and min chi and lapse values
         pp.load("nan_check", nan_check, 1);
@@ -39,6 +39,8 @@ class FixedBGSimulationParametersBase : public ChomboParameters
             data_path += "/";
         if (output_path != "./" && !output_path.empty())
             data_path = output_path + data_path;
+        if (!FilesystemTools::directory_exists(data_path))
+            FilesystemTools::mkdir_recursive(data_path);
 
         // Extraction params
         pp.load("activate_extraction", activate_extraction, false);

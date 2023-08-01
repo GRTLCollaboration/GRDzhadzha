@@ -16,7 +16,7 @@
 #include "FixedGridsTaggingCriterion.hpp"
 
 // Problem specific includes
-#include "AngMomConservation.hpp"
+#include "AngularMomConservation.hpp"
 #include "EnergyConservation.hpp"
 #include "ExcisionDiagnostics.hpp"
 #include "ExcisionEvolution.hpp"
@@ -86,11 +86,11 @@ void KerrBHScalarLevel::specificPostTimeStep()
         ScalarPotential potential(m_p.initial_params);
         ScalarFieldWithPotential scalar_field(potential);
         KerrSchild kerr_bh(m_p.bg_params, m_dx);
-        AngMomConservation<ScalarFieldWithPotential, KerrSchild> AngMomenta(
+        AngularMomConservation<ScalarFieldWithPotential, KerrSchild>
+            angular_mom(scalar_field, kerr_bh, m_dx, m_p.center);
+        EnergyConservation<ScalarFieldWithPotential, KerrSchild> energies(
             scalar_field, kerr_bh, m_dx, m_p.center);
-        EnergyConservation<ScalarFieldWithPotential, KerrSchild> Energies(
-            scalar_field, kerr_bh, m_dx, m_p.center);
-        BoxLoops::loop(make_compute_pack(AngMomenta, Energies), m_state_new,
+        BoxLoops::loop(make_compute_pack(angular_mom, energies), m_state_new,
                        m_state_diagnostics, SKIP_GHOST_CELLS);
 
         // excise within/outside specified radii, no simd
@@ -112,9 +112,9 @@ void KerrBHScalarLevel::specificPostTimeStep()
             double rhoEnergy_sum = amr_reductions.sum(c_rhoEnergy);
             double rhoAngMom_sum = amr_reductions.sum(c_rhoAngMom);
 
-            SmallDataIO integral_file("VolumeIntegrals", m_dt, m_time,
-                                      m_restart_time, SmallDataIO::APPEND,
-                                      first_step);
+            SmallDataIO integral_file(m_p.data_path + "VolumeIntegrals", m_dt,
+                                      m_time, m_restart_time,
+                                      SmallDataIO::APPEND, first_step);
             // remove any duplicate data if this is post restart
             integral_file.remove_duplicate_time_data();
 
@@ -136,7 +136,7 @@ void KerrBHScalarLevel::specificPostTimeStep()
                 VariableType::diagnostic, Interval(c_fluxAngMom, c_fluxEnergy));
             FluxExtraction my_extraction(m_p.extraction_params, m_dt, m_time,
                                          m_restart_time);
-            my_extraction.execute_query(m_gr_amr.m_interpolator);
+            my_extraction.execute_query(m_gr_amr.m_interpolator, m_p.data_path);
         }
     }
 }

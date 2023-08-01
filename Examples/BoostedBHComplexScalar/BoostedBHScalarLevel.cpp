@@ -27,7 +27,7 @@
 #include "ExcisionEvolution.hpp"
 #include "FluxExtraction.hpp"
 #include "InitialScalarData.hpp"
-#include "LinMomConservation.hpp"
+#include "LinearMomConservation.hpp"
 
 // Initial data for field and metric variables
 void BoostedBHScalarLevel::initialData()
@@ -72,8 +72,10 @@ void BoostedBHScalarLevel::specificPostTimeStep()
         BoostedBH boosted_bh(m_p.bg_params, m_dx);
         EnergyConservation<ScalarFieldWithPotential, BoostedBH> energies(
             scalar_field, boosted_bh, m_dx, m_p.center);
-        LinMomConservation<ScalarFieldWithPotential, BoostedBH> linear_momenta(
-            scalar_field, boosted_bh, m_dx, m_p.center);
+        int direction = 0; // we want the x direction for the momentum
+        LinearMomConservation<ScalarFieldWithPotential, BoostedBH>
+            linear_momenta(scalar_field, boosted_bh, direction, m_dx,
+                           m_p.center);
         BoxLoops::loop(make_compute_pack(energies, linear_momenta), m_state_new,
                        m_state_diagnostics, SKIP_GHOST_CELLS);
 
@@ -97,9 +99,9 @@ void BoostedBHScalarLevel::specificPostTimeStep()
             double rhoLinMom_sum = amr_reductions.sum(c_rhoLinMom);
             double sourceLinMom_sum = amr_reductions.sum(c_sourceLinMom);
 
-            SmallDataIO integral_file("EnergyIntegrals", m_dt, m_time,
-                                      m_restart_time, SmallDataIO::APPEND,
-                                      first_step);
+            SmallDataIO integral_file(m_p.data_path + "EnergyIntegrals", m_dt,
+                                      m_time, m_restart_time,
+                                      SmallDataIO::APPEND, first_step);
             // remove any duplicate data if this is post restart
             integral_file.remove_duplicate_time_data();
 
@@ -123,7 +125,7 @@ void BoostedBHScalarLevel::specificPostTimeStep()
                 VariableType::diagnostic, Interval(c_fluxEnergy, c_fluxLinMom));
             FluxExtraction my_extraction(m_p.extraction_params, m_dt, m_time,
                                          m_restart_time);
-            my_extraction.execute_query(m_gr_amr.m_interpolator);
+            my_extraction.execute_query(m_gr_amr.m_interpolator, m_p.data_path);
         }
     }
 }
@@ -142,14 +144,13 @@ void BoostedBHScalarLevel::specificEvalRHS(GRLevelData &a_soln,
         scalar_field, boosted_bh, m_p.sigma, m_dx, m_p.center);
     BoxLoops::loop(my_evolution, a_soln, a_rhs, SKIP_GHOST_CELLS);
 
-    // Do excision within horizon
+    // Do excision within horizon, don't use vectorisation
     BoxLoops::loop(ExcisionEvolution<ScalarFieldWithPotential, BoostedBH>(
                        m_dx, m_p.center, boosted_bh),
                    a_soln, a_rhs, SKIP_GHOST_CELLS, disable_simd());
 }
 
 // Note that for the fixed grids this only happens on the initial timestep
-// simd is disabled to allow simpler use of logical operators
 void BoostedBHScalarLevel::computeTaggingCriterion(
     FArrayBox &tagging_criterion, const FArrayBox &current_state)
 {

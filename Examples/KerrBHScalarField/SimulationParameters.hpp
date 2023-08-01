@@ -50,6 +50,12 @@ class SimulationParameters : public FixedBGSimulationParametersBase
                        "resolved on coarsest level");
         warn_parameter("bh_mass", bg_params.mass, bg_params.mass >= 0.0,
                        "should be >= 0.0");
+        warn_parameter("inner_r", inner_r,
+                       extraction_params.extraction_radii[0] == inner_r,
+                       "should be equal to first extraction radius");
+        warn_parameter("outer_r", outer_r,
+                       extraction_params.extraction_radii[1] == outer_r,
+                       "should be equal to second extraction radius");
         check_parameter("bh_spin", bg_params.spin,
                         std::abs(bg_params.spin) <= bg_params.mass,
                         "must satisfy |a| <= M = " +

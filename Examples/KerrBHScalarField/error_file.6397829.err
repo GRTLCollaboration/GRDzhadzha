@@ -1,0 +1,8 @@
+/cosma/home/dp016/dc-cui1/.bashrc: line 15: bind: warning: line editing not enabled
+[?1034h/cosma/home/dp016/dc-cui1/.bashrc: line 16: bind: warning: line editing not enabled
+/cosma/home/dp016/dc-cui1/.bashrc: line 18: bind: warning: line editing not enabled
+[proxy:0:0@m7241.pri.cosma7.alces.network] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:117): execvp error on file ./Main_BoostedBHScalar3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.ex (No such file or directory)
+[proxy:0:0@m7241.pri.cosma7.alces.network] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:117): execvp error on file ./Main_BoostedBHScalar3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.ex (No such file or directory)
+[proxy:0:0@m7241.pri.cosma7.alces.network] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:117): execvp error on file ./Main_BoostedBHScalar3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.ex (No such file or directory)
+[proxy:0:6@m7440.pri.cosma7.alces.network] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:117): execvp error on file ./Main_BoostedBHScalar3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.ex (No such file or directory)
+[proxy:0:0@m7241.pri.cosma7.alces.network] HYD_spawn (../../../../../src/pm/i_hydra/libhydra/spawn/intel/hydra_spawn.c:117): execvp error on file ./Main_BoostedBHScalar3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.ex (No such file or directory)

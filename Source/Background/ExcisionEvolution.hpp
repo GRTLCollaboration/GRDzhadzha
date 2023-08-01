@@ -37,7 +37,7 @@ template <class matter_t, class background_t> class ExcisionEvolution
     void compute(const Cell<double> current_cell) const
     {
         const Coordinates<double> coords(current_cell, m_dx, m_center);
-        bool is_excised = m_background.check_is_excised(coords);
+        bool is_excised = m_background.check_if_excised(coords);
         if (is_excised)
         {
             // the matter rhs vars within the excision zone

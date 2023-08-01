@@ -12,8 +12,8 @@ plt.rc('font', family='serif')
 plt.rcParams.update({'figure.figsize'    :  '6, 4.2'})
 plt.rcParams.update({'figure.autolayout': True})
 
-EMS = np.loadtxt('EnergyIntegrals.dat')
-F = np.loadtxt('FluxIntegrals.dat')
+EMS = np.loadtxt('data/EnergyIntegrals.dat')
+F = np.loadtxt('data/FluxIntegrals.dat')
 timedata = EMS[:,0][1:]
 dt = timedata[1] - timedata[0]
 E = EMS[:,1][1:]*4.
@@ -52,7 +52,7 @@ plt.plot(timedata,-FMo_dt + FMi_dt + S_dt,'k:',lw=2.,
 plt.xlim(0,2000)
 plt.legend(ncol=2,fontsize=14, bbox_to_anchor=(0., 0.95, 1., 0.102), loc='lower left')
 plt.xlabel(r'$t/M$', fontsize=14)
-plt.savefig('plots/momentum_conservation.pdf',dpi=256, bbox_inches='tight',pad_inches = 0.1)
+plt.savefig('momentum_conservation.pdf',dpi=256, bbox_inches='tight',pad_inches = 0.1)
 plt.close()
 
 plt.plot(timedata,E0,color=cm.Reds(8./10.,1.),
@@ -62,9 +62,9 @@ plt.plot(timedata,FEo_dt,color=cm.Blues(7./10.,1),ls='--',
 plt.plot(timedata,FEi_dt,color='grey',ls='--',
          label=r'$\int \mathcal{F}_{E,x, {\rm in}}$  dt')
 plt.plot(timedata,-FEo_dt + FEi_dt,'k:',lw=2.,
-         label=r'$\int (\mathcal{F}_{E,x,{\rm in}} - \mathcal{F}_{E,x,{\rm out}}$ dt')
+         label=r'$\int (\mathcal{F}_{E,x,{\rm in}} - \mathcal{F}_{E,x,{\rm out}})$ dt')
 plt.xlim(0,2000)
 plt.legend(ncol=2,fontsize=14, bbox_to_anchor=(0., 0.95, 1., 0.102), loc='lower left')
 plt.xlabel(r'$t/M$', fontsize=14)
-plt.savefig('plots/energy_conservation.pdf',dpi=256, bbox_inches='tight',pad_inches = 0.1)
+plt.savefig('energy_conservation.pdf',dpi=256, bbox_inches='tight',pad_inches = 0.1)
 plt.close()
