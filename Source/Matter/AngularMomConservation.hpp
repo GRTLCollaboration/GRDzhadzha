@@ -84,7 +84,7 @@ template <class matter_t, class background_t> class AngularMomConservation
 
         // angular momentum density
         data_t rhoAngMom = 0.0;
-        FOR1(i) { rhoAngMom += -emtensor.Si[i] * dxdphi[i]; }
+        FOR1(i) { rhoAngMom += emtensor.Si[i] * dxdphi[i]; }
         rhoAngMom *= sqrt(det_gamma);
 
         // flux density on surface

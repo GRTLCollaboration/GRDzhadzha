@@ -38,11 +38,15 @@ class InitialScalarData
 
         Coordinates<data_t> coords(current_cell, m_dx, m_params.center);
         data_t radius = coords.get_radius();
+        data_t x = coords.x;
+        double y = coords.y;
+        double z = coords.z;
 
         // set the field vars
-        vars.phi =
+        data_t f_of_r =
             m_params.amplitude * exp(-(radius - 20.0) * (radius - 20.0) / 10.0);
-        vars.Pi = 0;
+        vars.phi = f_of_r * x / radius;
+        vars.Pi = -f_of_r * y / radius;
 
         current_cell.store_vars(vars);
     }
