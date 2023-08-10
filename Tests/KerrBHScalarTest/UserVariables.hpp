@@ -34,6 +34,6 @@ static const std::array<std::string, NUM_VARS> variable_names =
     ArrayTools::concatenate(ccz4_variable_names, user_variable_names);
 } // namespace UserVariables
 
-//#include "UserVariables.inc.hpp"
+// #include "UserVariables.inc.hpp"
 
 #endif /* USERVARIABLES_HPP */

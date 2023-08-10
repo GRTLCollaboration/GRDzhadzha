@@ -18,7 +18,7 @@ checkpoint_interval = 100
 # set to -1 to never ever print plotfiles
 plot_interval = 10
 num_plot_vars = 3
-plot_vars = phi_Re rhoEnergy fluxAngMom
+plot_vars = phi rhoEnergy fluxAngMom
 
 # subpaths - specific directories for hdf5, pout, extraction data
 # (these are created at runtime)
@@ -37,30 +37,31 @@ print_progress_only_to_rank_0 = 1
 # Initial Data parameters
 
 # Scalar field Initial data
-scalar_mass = 0.05
+scalar_mass = 0.1
 scalar_amplitude = 0.1
 
 # Boosted BH initial data, boost in x direction
 bh_mass = 1.0
-bh_spin = 0.0 # This is a, so needs to be <= M
+bh_spin = 0.5 # This is a, so needs to be <= M
 
 ################################################
 # Diagnostic extraction parameters
 
-# For volume integrals
-inner_r = 3.0
-outer_r = 200.0
-
 # For flux (surface) extraction
 activate_extraction = 1
-write_extraction = 0
+# write_extraction = 0
 
 num_extraction_radii = 2
 extraction_levels = 0 0
-extraction_radii = 3.0 200.0
+extraction_radii = 7.0 110.0
 
 num_points_phi = 36
 num_points_theta = 24
+
+# For volume integrals
+# defaulted to extraction radii values above
+# inner_r = 7.0
+# outer_r = 110.0
 
 #################################################
 # Grid parameters
@@ -73,10 +74,10 @@ num_points_theta = 24
 # 'N2' or 'N2_full' and 'N3' or 'N3_full' ( then dx_coarsest = L/N(max) )
 # NB - the N values need to be multiples of the block_factor
 N1 = 128
-N2 = 64
+N2 = 128
 N3 = 64
 
-L_full = 1024
+L_full = 512
 
 # Maximum number of times you can regrid above coarsest level
 max_level = 6 # There are (max_level+1) grids, so min is zero
@@ -106,8 +107,8 @@ isPeriodic = 0 0 0
 # 0 = static, 1 = sommerfeld, 2 = reflective
 # 3 = extrapolating, 4 = mixed
 # (see BoundaryConditions.hpp for details)
-hi_boundary = 3 3 3
-lo_boundary = 3 2 2
+hi_boundary = 1 1 1
+lo_boundary = 1 1 2
 
 # if reflective boundaries selected, must set
 # parity of all vars (in order given by UserVariables.hpp)
@@ -122,8 +123,8 @@ vars_parity_diagnostic = 0 0 0     #chi, rhoEnergy and rhoAngMom
 # if sommerfeld boundaries selected, must select
 # non zero asymptotic values
 num_nonzero_asymptotic_vars = 0
-nonzero_asymptotic_vars = chi
-nonzero_asymptotic_values = 1.0
+nonzero_asymptotic_vars = phi
+nonzero_asymptotic_values = 0.0
 
 # if you are using extrapolating BC:
 extrapolation_order = 0
@@ -138,7 +139,7 @@ extrapolation_order = 0
 
 # dt will be dx*dt_multiplier on each grid level
 dt_multiplier = 0.1
-stop_time = 2000.0
+stop_time = 250.0
 # max_steps = 4
 
 nan_check = 1

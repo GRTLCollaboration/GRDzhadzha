@@ -13,7 +13,8 @@
 #include "UserVariables.hpp" //This files needs NUM_VARS - total number of components
 #include "VarsTools.hpp"
 
-//! Does excision for fixed BG BH solutions
+//! Does excision for the diagnostic variables - setting them to zero
+//! outside of the integration volume
 template <class matter_t, class background_t> class ExcisionDiagnostics
 {
   protected:

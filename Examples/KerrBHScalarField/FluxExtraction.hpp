@@ -24,8 +24,8 @@ class FluxExtraction : public SphericalExtraction
         : SphericalExtraction(a_params, a_dt, a_time, a_first_step,
                               a_restart_time)
     {
-        add_var(c_fluxAngMom, VariableType::diagnostic);
         add_var(c_fluxEnergy, VariableType::diagnostic);
+        add_var(c_fluxAngMom, VariableType::diagnostic);
     }
 
     //! The old constructor which assumes it is called in specificPostTimeStep
@@ -40,13 +40,14 @@ class FluxExtraction : public SphericalExtraction
     // the references of the vars as used in the integrator
     enum M_VARS
     {
-        m_fluxAngMom,
         m_fluxEnergy,
+        m_fluxAngMom,
         NUM_EXTRACTION_COMPS
     };
 
     //! Execute the query
-    void execute_query(AMRInterpolator<Lagrange<4>> *a_interpolator)
+    void execute_query(AMRInterpolator<Lagrange<4>> *a_interpolator,
+                       std::string a_datapath)
     {
         // extract the values of the Flux scalars on the spheres
         extract(a_interpolator);
@@ -54,14 +55,14 @@ class FluxExtraction : public SphericalExtraction
         // this would write out the values at every point on the sphere
         if (m_params.write_extraction)
         {
-            write_extraction("FluxExtractionOut_");
+            write_extraction(a_datapath + "FluxExtractionOut_");
         }
 
         // Setup to integrate fluxes
         std::vector<std::vector<double>> force_integrals(NUM_EXTRACTION_COMPS);
-        add_var_integrand(m_fluxAngMom, force_integrals[m_fluxAngMom],
-                          IntegrationMethod::simpson);
         add_var_integrand(m_fluxEnergy, force_integrals[m_fluxEnergy],
+                          IntegrationMethod::simpson);
+        add_var_integrand(m_fluxAngMom, force_integrals[m_fluxAngMom],
                           IntegrationMethod::simpson);
 
         // do the integration over the surface
@@ -69,9 +70,9 @@ class FluxExtraction : public SphericalExtraction
 
         // write the integrals
         std::vector<std::string> labels(NUM_EXTRACTION_COMPS);
-        labels[m_fluxAngMom] = "Ang. Mom. Flux";
         labels[m_fluxEnergy] = "Energy Flux";
-        std::string filename = "FluxIntegrals";
+        labels[m_fluxAngMom] = "Ang. Mom. Flux";
+        std::string filename = a_datapath + "FluxIntegrals";
         write_integrals(filename, force_integrals, labels);
     }
 };

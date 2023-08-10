@@ -21,8 +21,8 @@
 // Lorentz boost x = \gamma (x' - vt'), t = \gamma (t' - v*x')
 // Addisional shift to fix coordinates to the BH
 // x' = \tilde x + v \tilde t, t' = \tilde t
-// BH appears fixed, but we're in the rest frame of the SF!
-// See https://arxiv.org/pdf/2106.08280.pdf for detail
+// BH appears fixed, but we're in the rest frame of the unboosted observer!
+// See https://arxiv.org/pdf/2106.08280.pdf for details
 
 class BoostedBH
 {
@@ -100,9 +100,8 @@ class BoostedBH
         get_metric_derivs(dAdx, dBdx, coords);
 
         // populate ADM vars
-        // fudge within horizon if r < M/2
-        data_t sign_lapse = (r - 0.5 * M) / abs(r - 0.5 * M);
-        vars.lapse = sign_lapse / boost * sqrt(A * B / (B - A * v2));
+        // (Keep lapse negative within the horizon)
+        vars.lapse = sqrtA / boost * sqrt(B / (B - A * v2));
 
         using namespace TensorAlgebra;
         FOR2(i, j) { vars.gamma[i][j] = delta(i, j) * B; }
@@ -130,7 +129,6 @@ class BoostedBH
 
         // use the fact that shift^i = lapse^2 * shift_i + v^i
         // and v^i is a constant vector
-
         FOR2(i, j)
         {
             vars.d1_shift[i][j] =
@@ -209,7 +207,7 @@ class BoostedBH
   public:
     // used to decide when to excise - ie when within the horizon of the BH
     // note that this is not templated over data_t
-    bool excise(const Coordinates<double> &coords) const
+    bool check_if_excised(const Coordinates<double> &coords) const
     {
         // black hole params - mass M and boost v
         // "boost" is the gamma factor for the boost
@@ -228,13 +226,13 @@ class BoostedBH
 
         // compare this to horizon in isotropic coords
         const double r_horizon = 0.5 * M;
-        bool do_I_excise = false;
+        bool is_excised = false;
 
         if (sqrt(r2) / r_horizon < 0.5)
         {
-            do_I_excise = true;
+            is_excised = true;
         }
-        return do_I_excise;
+        return is_excised;
     }
 };
 

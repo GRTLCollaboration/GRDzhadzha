@@ -9,6 +9,8 @@
 #include "Tensor.hpp"
 #include "simd.hpp"
 
+//! The potential used in no template argument is passed
+//! for the ScalarField classes, just setting it to zero
 class DefaultPotential
 {
   public:

@@ -46,7 +46,8 @@ class FluxExtraction : public SphericalExtraction
     };
 
     //! Execute the query
-    void execute_query(AMRInterpolator<Lagrange<4>> *a_interpolator)
+    void execute_query(AMRInterpolator<Lagrange<4>> *a_interpolator,
+                       std::string a_datapath)
     {
         // extract the values of the Flux scalars on the spheres
         extract(a_interpolator);
@@ -54,7 +55,7 @@ class FluxExtraction : public SphericalExtraction
         // this would write out the values at every point on the sphere
         if (m_params.write_extraction)
         {
-            write_extraction("FluxExtractionOut_");
+            write_extraction(a_datapath + "FluxExtractionOut_");
         }
 
         // Setup to integrate fluxes
@@ -71,7 +72,7 @@ class FluxExtraction : public SphericalExtraction
         std::vector<std::string> labels(NUM_EXTRACTION_COMPS);
         labels[m_fluxEnergy] = "Energy Flux";
         labels[m_fluxLinMom] = "Lin. Mom. Flux";
-        std::string filename = "FluxIntegrals";
+        std::string filename = a_datapath + "FluxIntegrals";
         write_integrals(filename, force_integrals, labels);
     }
 };

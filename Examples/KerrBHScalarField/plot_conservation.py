@@ -12,7 +12,7 @@ plt.rc('font', family='serif')
 plt.rcParams.update({'figure.figsize'    :  '6, 4.2'})
 plt.rcParams.update({'figure.autolayout': True})
 
-symmetry = 4.0
+symmetry = 2.0
 
 EMS = np.loadtxt('data/EnergyIntegrals.dat')
 F = np.loadtxt('data/FluxIntegrals.dat')
@@ -20,7 +20,6 @@ timedata = EMS[:,0][1:]
 dt = timedata[1] - timedata[0]
 E = EMS[:,1][1:]*symmetry
 M = EMS[:,2][1:]*symmetry
-S = EMS[:,3][1:]*symmetry
 E0 = E-E[0]
 M0 = M-M[0]
 FEi = F[:,1]
@@ -32,14 +31,12 @@ FEo_dt = np.zeros_like(timedata)
 FEi_dt = np.zeros_like(timedata)
 FMo_dt = np.zeros_like(timedata)
 FMi_dt = np.zeros_like(timedata)
-S_dt = np.zeros_like(timedata)
 for i, t in enumerate(timedata) :
     if (i > 0) :
         FEo_dt[i] += FEo_dt[i-1] + FEo[i] * dt
         FEi_dt[i] += FEi_dt[i-1] + FEi[i] * dt
         FMo_dt[i] += FMo_dt[i-1] + FMo[i] * dt
         FMi_dt[i] += FMi_dt[i-1] + FMi[i] * dt
-        S_dt[i] += S_dt[i-1]+ S[i] * dt
 
 plt.plot(timedata,M0,color=cm.Reds(8./10.,1.),
          label='$\mathcal{Q}_x$ - $\mathcal{Q}_x(t=0)$')
@@ -47,10 +44,8 @@ plt.plot(timedata,FMo_dt,color=cm.Blues(7./10.,1),ls='--',
          label=r'$\int \mathcal{F}_{x,{\rm out}}$  dt')
 plt.plot(timedata,FMi_dt,color='grey',ls='--',
          label=r'$\int \mathcal{F}_{x, {\rm in}}$  dt')
-plt.plot(timedata,S_dt,color=cm.Greens(7./10.,1),ls='-.',
-         label='$\int \mathcal{S}_x$  dt')
-plt.plot(timedata,-FMo_dt + FMi_dt + S_dt,'k:',lw=2.,
-         label=r'$\int (\mathcal{F}_{x,{\rm in}} - \mathcal{F}_{x,{\rm out}} + \mathcal{S}_x)$ dt')
+plt.plot(timedata,-FMo_dt + FMi_dt,'k:',lw=2.,
+         label=r'$\int (\mathcal{F}_{x,{\rm in}} - \mathcal{F}_{x,{\rm out}})$ dt')
 plt.xlim(0,250)
 plt.legend(ncol=2,fontsize=14, bbox_to_anchor=(0., 0.95, 1., 0.102), loc='lower left')
 plt.xlabel(r'$t/M$', fontsize=14)

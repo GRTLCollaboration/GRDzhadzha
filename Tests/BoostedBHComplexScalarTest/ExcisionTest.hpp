@@ -7,7 +7,7 @@
 #define EXCISIONTEST_HPP_
 
 #include "CCZ4.hpp"
-//#include "CCZ4Geometry.hpp"
+// #include "CCZ4Geometry.hpp"
 #include "Cell.hpp"
 #include "Coordinates.hpp"
 #include "GRInterval.hpp"
@@ -46,15 +46,13 @@ template <class matter_t, class background_t> class ExcisionTest
             // recalculate them - for now set to zero
             Vars matter_vars;
             matter_vars.enum_mapping(
-                [this, &current_cell](const int &ivar, double &var) {
-                    var = 0.0;
-                });
+                [this, &current_cell](const int &ivar, double &var)
+                { var = 0.0; });
 
             CCZ4::Vars<double> ccz4_vars;
             ccz4_vars.enum_mapping(
-                [this, &current_cell](const int &ivar, double &var) {
-                    var = 0.0;
-                });
+                [this, &current_cell](const int &ivar, double &var)
+                { var = 0.0; });
 
             // assign values of rhs in output box
             // also zero the constraints

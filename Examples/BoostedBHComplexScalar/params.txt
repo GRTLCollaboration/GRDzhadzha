@@ -47,20 +47,22 @@ bh_velocity = 0.3 # in unit of c (i.e. 0<v<1)
 ################################################
 # Diagnostic extraction parameters
 
-# For volume integrals
-inner_r = 3.0
-outer_r = 200.0
-
 # For flux (surface) extraction
 activate_extraction = 1
-write_extraction = 0
+# write_extraction = 0
 
+# Set to match inner and outer radii above
 num_extraction_radii = 2
 extraction_levels = 0 0
 extraction_radii = 3.0 200.0
 
 num_points_phi = 36
 num_points_theta = 24
+
+# For volume integrals
+# By default these are set to the values of the extraction radii above
+# inner_r = 3.0
+# outer_r = 200.0
 
 #################################################
 # Grid parameters
@@ -93,7 +95,9 @@ regrid_interval   = 0   0   0   0   0   0
 max_box_size = 16
 min_box_size = 16
 
-tag_buffer_size = 0 # this example uses a fixed grid
+# Don't add a buffer to the tagged cells since
+# this example uses a fixed grid
+tag_buffer_size = 0
 
 # center = 512.0 0.0 0.0 # defaults to center of the grid
 
@@ -138,7 +142,7 @@ extrapolation_order = 0
 
 # dt will be dx*dt_multiplier on each grid level
 dt_multiplier = 0.1
-stop_time = 2000.0
+stop_time = 250.0
 # max_steps = 4
 
 nan_check = 1

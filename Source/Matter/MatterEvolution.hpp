@@ -16,12 +16,12 @@
 #include "VarsTools.hpp"
 #include "simd.hpp"
 
-//!  Calculates RHS of matter variables only, gravity vars assumed static
+//!  Calculates RHS of matter variables only, metric vars assumed analytic
 /*!
      The class calculates the RHS evolution for the matter variables.
-     It assumes a fixed background metric, background_t.
-     It does not assume a specific form of matter but is templated over a matter
-     class matter_t.
+     It does not assume a specific form of matter or background -
+     it is templated over a matter class matter_t, and over a background metric,
+     background_t
 */
 
 template <class matter_t, class background_t> class MatterEvolution
@@ -31,11 +31,11 @@ template <class matter_t, class background_t> class MatterEvolution
     template <class data_t>
     using MatterVars = typename matter_t::template Vars<data_t>;
 
-    //  Should not need any d2 for the metric vars (Proca and SF)
+    //  Need d2 of certain matter vars
     template <class data_t>
     using MatterDiff2Vars = typename matter_t::template Diff2Vars<data_t>;
 
-    // Now the non grid ADM vars
+    // This is used for the non evolved ADM vars
     template <class data_t> using MetricVars = ADMFixedBGVars::Vars<data_t>;
 
     //!  Constructor of class MatterEvolution
@@ -52,9 +52,10 @@ template <class matter_t, class background_t> class MatterEvolution
     {
         // copy matter data from chombo gridpoint into local variable
         const auto matter_vars = current_cell.template load_vars<MatterVars>();
-        const Coordinates<data_t> coords(current_cell, m_dx, m_center);
-        // compute the other non grid vars
+
+        // compute the background metric vars
         MetricVars<data_t> metric_vars;
+        const Coordinates<data_t> coords(current_cell, m_dx, m_center);
         m_background.compute_metric_background(metric_vars, coords);
 
         // compute derivs for matter grid vars
@@ -72,7 +73,7 @@ template <class matter_t, class background_t> class MatterEvolution
                             advec);
         m_deriv.add_dissipation(matter_rhs, current_cell, m_sigma);
 
-        // Write the rhs into the output FArrayBox
+        // Write the rhs into the output vars for this cell
         current_cell.store_vars(matter_rhs);
     }
 

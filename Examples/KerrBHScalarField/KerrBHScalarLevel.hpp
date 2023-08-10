@@ -30,14 +30,8 @@ class KerrBHScalarLevel : public GRAMRLevel
     // Typedef for scalar field
     typedef ScalarField<ScalarPotential> ScalarFieldWithPotential;
 
-    //! Things to do at the end of the advance step, after RK4 calculation
-    virtual void specificAdvance();
-
     //! Initialize data for the field and metric variables
     virtual void initialData();
-
-    //! routines to do before outputing plot file
-    virtual void prePlotLevel();
 
     //! RHS routines used at each RK4 step
     virtual void specificEvalRHS(GRLevelData &a_soln, GRLevelData &a_rhs,
