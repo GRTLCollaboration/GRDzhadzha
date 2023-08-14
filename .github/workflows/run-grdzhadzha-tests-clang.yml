@@ -1,0 +1,53 @@
+name: Run GRDzhadzha Tests (Clang)
+
+on: [push]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-22.04
+    env:
+      CHOMBO_HOME: ${{ github.workspace }}/Chombo/lib
+      OMP_NUM_THREADS: 1
+      OMPI_CXX: clang++
+
+    steps:
+    - name: Checkout Chombo
+      uses: actions/checkout@v3
+      with:
+        repository: GRChombo/Chombo
+        path: Chombo
+
+    - name: Checkout GRDzhadzha
+      uses: actions/checkout@v3
+      with:
+        path: GRDzhadzha
+
+    - name: Update package manager database
+      id: update-database
+      continue-on-error: true
+      run: sudo apt-get update
+
+      # This is quite slow so only do this if the previous command fails
+    - name: Update package repository mirrors if necessary
+      if: steps.update-database.outcome == 'failure'
+      run: |
+        sudo gem install apt-spy2
+        sudo apt-spy2 fix --commit --launchpad --country=US
+        sudo apt-get update
+
+    - name: Install Chombo dependencies
+      run: sudo apt-get -y --no-install-recommends install csh libhdf5-dev libhdf5-openmpi-dev openmpi-bin libblas-dev liblapack-dev libgetopt-complete-perl
+
+    - name: Build Chombo
+      run: |
+        cp $GITHUB_WORKSPACE/GRChombo/InstallNotes/MakeDefsLocalExamples/ubuntu-clang.Make.defs.local $CHOMBO_HOME/mk/Make.defs.local
+        make -j 4 AMRTimeDependent AMRTools BaseTools BoxTools
+      working-directory: ${{ env.CHOMBO_HOME }}
+
+    - name: Build GRDzhadzha Tests
+      run: make test -j 4
+      working-directory: ${{ github.workspace }}/GRDzhadzha
+
+    - name: Run GRDzhadzha Tests
+      run: make run -j 2
+      working-directory: ${{ github.workspace }}/GRDzhadzha
