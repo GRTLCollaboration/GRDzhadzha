@@ -17,7 +17,7 @@ jobs:
         repository: GRChombo/Chombo
         path: Chombo
 
-    - name: Checkout GRDzhadzha
+    - name: Checkout GRChombo
       uses: actions/checkout@v3
       with:
         path: GRChombo
