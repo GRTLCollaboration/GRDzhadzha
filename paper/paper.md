@@ -101,7 +101,7 @@ So far the code has been used to study a range of fundamental physics problems:
 - Growth of scalar hair around a Schwarzschild [@Clough:2019jpm] and a Kerr [@Bamber:2020bpu] black hole
 - Determining the relativistic drag forces on a Schwarzschild black hole moving through a cloud of scalar field dark matter [@Traykova:2021dua;@Traykova:2023qyv]
 
-![Formation of overdense tail of scalar dark matter behind a moving BH, due to dynamical friction \label{fig:friction}] (Figures/friction.png){ width=45% }
+![Formation of overdense tail of scalar dark matter behind a moving BH, due to dynamical friction \label{fig:friction}](Figures/friction.png){ width=45% }
 ![The evolution of scalar clouds around black hole binaries in, the initial conditions were generated with a modified version of GRDzhadzha \label{fig:accretion}](Figures/accretion.png){ width=45% }
 
 - Studying the dynamical friction effects on a Kerr black hole (Magnus effect) [@Wang:inprep]
@@ -114,20 +114,18 @@ So far the code has been used to study a range of fundamental physics problems:
 We thank the GRChombo collaboration (http://www.grchombo.org) for their support and code development work.
 JB acknowledges funding from a UK Science and Technology Facilities Council (STFC) studentship.
 JCA acknowledges funding from the Beecroft Trust and The Queen’s College via an extraordinary Junior Research Fellowship (eJRF).
-This project has received funding from the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (Grant Agreement No 693024).
+((This project has received funding from the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (Grant Agreement No 693024).))
 KC acknowledges funding from the UKRI Ernest Rutherford Fellowship (grant number ST/V003240/1). 
 
-GRDzhadzha users have benefited from the provision of HPC resources from:
-
-  * DiRAC (Distributed Research utilising Advanced Computing) resources under the projects ACSP218, ACSP191, ACTP183 and ACTP186. Systems used include: 
-
-[//]: <> (- Cambridge Service for Data Driven Discovery (CSD3), part of which is operated by the University of Cambridge Research Computing on behalf of the STFC DiRAC HPC Facility (www.dirac.ac.uk). The DiRAC component of CSD3 was funded by BEIS capital funding via STFC capital grants ST/P002307/1 and ST/R002452/1 and STFC operations grant ST/R00689X/1. DiRAC is part of the National e-Infrastructure.)
+GRDzhadzha users have benefited from the provision of HPC resources from: 
+ * DiRAC (Distributed Research utilising Advanced Computing) resources under the projects ACSP218, ACSP191, ACTP183 and ACTP186. Systems used include: 
+    - (( Cambridge Service for Data Driven Discovery (CSD3), part of which is operated by the University of Cambridge Research Computing on behalf of the STFC DiRAC HPC Facility (www.dirac.ac.uk). The DiRAC component of CSD3 was funded by BEIS capital funding via STFC capital grants ST/P002307/1 and ST/R002452/1 and STFC operations grant ST/R00689X/1. DiRAC is part of the National e-Infrastructure.))
 
     - DiRAC Data Intensive service at Leicester, operated by the University of Leicester IT Services, which forms part of the STFC DiRAC HPC Facility (www.dirac.ac.uk). The equipment was funded by BEIS capital funding via STFC capital grants ST/K000373/1 and ST/R002363/1 and STFC DiRAC Operations grant ST/R001014/1. DiRAC is part of the National e-Infrastructure.
 
     -  DiRAC at Durham facility managed by the Institute for Computational Cosmology on behalf of the STFC DiRAC HPC Facility (www.dirac.ac.uk). The equipment was funded by BEIS capital funding via STFC capital grants ST/P002293/1 and ST/R002371/1, Durham University and STFC operations grant ST/R000832/1. DiRAC is part of the National e-Infrastructure.
 
-[//]: <> (- DIRAC Shared Memory Processing system at the University of Cambridge, operated by the COSMOS Project at the Department of Applied Mathematics and Theoretical Physics on behalf of the STFC DiRAC HPC Facility (www.dirac.ac.uk). This equipment was funded by BIS National E-infrastructure capital grant ST/J005673/1, STFC capital grant ST/H008586/1, and STFC DiRAC Operations grant ST/K00333X/1. DiRAC is part of the National e-Infrastructure.)
+    - (( DIRAC Shared Memory Processing system at the University of Cambridge, operated by the COSMOS Project at the Department of Applied Mathematics and Theoretical Physics on behalf of the STFC DiRAC HPC Facility (www.dirac.ac.uk). This equipment was funded by BIS National E-infrastructure capital grant ST/J005673/1, STFC capital grant ST/H008586/1, and STFC DiRAC Operations grant ST/K00333X/1. DiRAC is part of the National e-Infrastructure.))
 
     - DiRAC Complexity system, operated by the University of Leicester IT Services, which forms part of the STFC DiRAC HPC Facility (www.dirac.ac.uk). This equipment is funded by BIS National E-Infrastructure capital grant ST/K000373/1 and STFC DiRAC Operations grant ST/K0003259/1. DiRAC is part of the National e-Infrastructure.
     
@@ -139,16 +137,16 @@ GRDzhadzha users have benefited from the provision of HPC resources from:
 
     - JUWELS, Juelich Supercomputing Centre (JSC), Germany
 
-[//]: <> ( - Cartesius (SURF), Netherlands - Marenostrum (BSC), Spain)
+    - (( Cartesius (SURF), Netherlands - Marenostrum (BSC), Spain))
     
-[//]: <> (  * the Argonne Leadership Computing Facility, including the Joint Laboratory for System Evaluation (JLSE), which is a U.S. Department of Energy (DOE) Office of Science User Facility supported under Contract DE-AC02-06CH11357.)
+  * (( the Argonne Leadership Computing Facility, including the Joint Laboratory for System Evaluation (JLSE), which is a U.S. Department of Energy (DOE) Office of Science User Facility supported under Contract DE-AC02-06CH11357.))
 
   * the Texas Advanced Computing Center (TACC) at the University of Austin HPC and visualization resources URL: http://www.tacc.utexas.edu, and the San Diego Supercomputing Center (SDSC) URL: https://www.sdsc.edu, under project PHY-20043 and XSEDE Grant No. NSF-PHY-090003
 
-[//]: <> (  * Consortium des Équipements de Calcul Intensif (CÉCI), funded by the Fonds de la Recherche Scientifique de Belgique (F.R.S.-FNRS), Belgium  * the Marconi HPC resources and software support (awarded by CINECA), Italy)
+  * (( Consortium des Équipements de Calcul Intensif (CÉCI), funded by the Fonds de la Recherche Scientifique de Belgique (F.R.S.-FNRS), Belgium  * the Marconi HPC resources and software support (awarded by CINECA), Italy))
 
   * the Glamdring cluster, Astrophysics, Oxford, UK
 
-[//]: <> (  * The Fawcett cluster, Faculty of Mathematics, Cambridge, UK  * the Argo cluster at ICTP, Trieste, Italy  * the Apocrita cluster at QMUL, UK  * The Athena cluster at HPC Midlands Plus, UK  * The Cosmo cluster at CURL, University of Louvain, Belgium)
+  * (( The Fawcett cluster, Faculty of Mathematics, Cambridge, UK  * the Argo cluster at ICTP, Trieste, Italy  * the Apocrita cluster at QMUL, UK  * The Athena cluster at HPC Midlands Plus, UK  * The Cosmo cluster at CURL, University of Louvain, Belgium))
 
 # References
