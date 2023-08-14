@@ -15,7 +15,7 @@ authors:
 - name: Jamie Bamber
   orcid: 0000-0001-7181-3365
   affiliation: 1
-- name Sam E. Brady
+- name: Sam E. Brady
   orcid:
   affiliation: 2
 - name: Katy Clough
