@@ -22,6 +22,11 @@ jobs:
       with:
         path: GRChombo
 
+    - name: Checkout GRDzhadzha
+      uses: actions/checkout@v2
+      with:
+        path: GRDzhadzha
+
     - name: Install Chombo dependencies
       run: |
         sudo apt-get update
@@ -39,10 +44,10 @@ jobs:
         make -j 4 AMRTimeDependent AMRTools BaseTools BoxTools
       working-directory: ${{ env.CHOMBO_HOME }}
 
-    - name: Build GRChombo Tests
+    - name: Build GRDzhadzha Tests
       run: make test -j 4
       working-directory: ${{ github.workspace }}/GRDzhadzha
 
-    - name: Run GRChombo Tests
+    - name: Run GRDzhadzha Tests
       run: make run -j 2
       working-directory: ${{ github.workspace }}/GRDzhadzha
