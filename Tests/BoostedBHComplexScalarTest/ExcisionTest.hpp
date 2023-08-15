@@ -39,7 +39,7 @@ template <class matter_t, class background_t> class ExcisionTest
     void compute(Cell<double> current_cell) const
     {
         const Coordinates<double> coords(current_cell, m_dx, m_center);
-        bool do_I_excise = m_background.excise(coords);
+        bool do_I_excise = m_background.check_if_excised(coords);
         if (do_I_excise)
         {
             // the matter rhs vars within the excision zone
