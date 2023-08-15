@@ -20,7 +20,7 @@ jobs:
     - name: Checkout GRChombo
       uses: actions/checkout@v2
       with:
-        repisitory: GRChombo/GRChombo
+        repository: GRChombo/GRChombo
         path: GRChombo
 
     - name: Checkout GRDzhadzha
