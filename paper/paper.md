@@ -131,7 +131,7 @@ GRDzhadzha users have benefited from the provision of HPC resources from:
 
     - DiRAC Complexity system, operated by the University of Leicester IT Services, which forms part of the STFC DiRAC HPC Facility (www.dirac.ac.uk). This equipment is funded by BIS National E-Infrastructure capital grant ST/K000373/1 and STFC DiRAC Operations grant ST/K0003259/1. DiRAC is part of the National e-Infrastructure.
     
-  * Sakura, Raven and COBRA clusters at the Max Planck Computing and Data Facility (MPCDF) in Garching, Germany,
+  * Sakura, Cobra and Raven clusters at the Max Planck Computing and Data Facility (MPCDF) in Garching, Germany,
 
   * PRACE (Partnership for Advanced Computing in Europe) resources under grant numbers 2018194669, 2020225359. Systems used include:
 
