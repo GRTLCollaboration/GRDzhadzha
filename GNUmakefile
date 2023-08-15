@@ -17,7 +17,7 @@ RealCleanExampleDirs := $(ExampleDirs:%=realclean-%)
 # Note that you need to set:
 # CHOMBO_HOME := Please set the CHOMBO_HOME locally (e.g. export CHOMBO_HOME=... in bash)
 # GRCHOMBO_SOURCE := Set locally (e.g. export GRCHOMBO_SOURCE=path/to/GRChombo/Source in bash)     
-export FIXEDBG_SOURCE = $(shell pwd)/Source
+export GRDZHADZHA_SOURCE = $(shell pwd)/Source
 
 ECHO?=@ # set this to null on the command line to increase verbosity
 
