@@ -6,7 +6,7 @@ jobs:
   build-and-test:
     runs-on: ubuntu-22.04
     env:
-      CHOMBO_HOME: ${{ github.workspace }}/../../Chombo/lib
+      CHOMBO_HOME: ${{ github.workspace }}/Chombo/lib
       OMP_NUM_THREADS: 1
       OMPI_CXX: clang++
       GRCHOMBO_HOME: ${{ github.workspace }}/GRChombo
