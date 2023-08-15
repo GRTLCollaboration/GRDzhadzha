@@ -39,14 +39,6 @@ jobs:
         sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
         sudo update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-10 100
         sudo update-alternatives --install /usr/bin/cpp cpp /usr/bin/cpp-10 100
-
-    - name: Test This Weird Stuff
-      run: |
-        cp $CHOMBO_HOME/mk/Make.defs.local.template $CHOMBO_HOME/mk/Make.defs.local.template2
-        cp $GRCHOMBO_HOME/LICENSE $GRCHOMBO_HOME/LICENSE2
-        echo $CHOMBO_HOME
-        echo $GRCHOMBO_HOME
-      working-directory: ${{ env.CHOMBO_HOME }}
     
     - name: Build Chombo
       run: |
