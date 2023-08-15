@@ -8,7 +8,7 @@ jobs:
     env:
       CHOMBO_HOME: ${{ github.workspace }}/Chombo/lib
       OMP_NUM_THREADS: 1
-      GRCHOMBO_HOME: /home/runner/work/GRChombo/GRChombo
+      GRCHOMBO_HOME: ${{ github.workspace }}/GRChombo
 
     steps:
     - name: Checkout Chombo
@@ -41,7 +41,7 @@ jobs:
 
     - name: Build Chombo
       run: |
-        cp $GITHUB_WORKSPACE/GRChombo/InstallNotes/MakeDefsLocalExamples/ubuntu-gcc.Make.defs.local $CHOMBO_HOME/mk/Make.defs.local
+        cp $GRCHOMBO_HOME/InstallNotes/MakeDefsLocalExamples/ubuntu-gcc.Make.defs.local $CHOMBO_HOME/mk/Make.defs.local
         make -j 4 AMRTimeDependent AMRTools BaseTools BoxTools
       working-directory: ${{ env.CHOMBO_HOME }}
 
