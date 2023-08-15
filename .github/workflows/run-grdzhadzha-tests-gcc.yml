@@ -8,7 +8,7 @@ jobs:
     env:
       CHOMBO_HOME: ${{ github.workspace }}/Chombo/lib
       OMP_NUM_THREADS: 1
-      GRCHOMBO_HOME: ${{ github.workspace }}/GRChombo
+      GRCHOMBO_HOME: /home/runner/work/GRChombo/GRChombo
 
     steps:
     - name: Checkout Chombo
