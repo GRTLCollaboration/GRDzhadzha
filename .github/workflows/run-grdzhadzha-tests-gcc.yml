@@ -1,4 +1,4 @@
-name: Run GRChombo Tests (GCC)
+name: Run GRDzhadzha Tests (GCC)
 
 on: [push]
 
