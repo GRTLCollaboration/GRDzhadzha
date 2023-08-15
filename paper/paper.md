@@ -37,7 +37,7 @@ authors:
   orcid: 0000-0002-4745-8209
   affiliation: 3
 affiliations:
-- name: Astrophysics, Oxford University, Denys Wilkinson Building, Keble Road, Oxford OX1 3RH, United Kingdom
+- name: Astrophysics, University of Oxford, Denys Wilkinson Building, Keble Road, Oxford OX1 3RH, United Kingdom
   index: 1
 - name: School of Mathematical Sciences, Queen Mary University of London, Mile End Road, London E1 4NS, United Kingdom
   index: 2
@@ -78,10 +78,10 @@ GRDzhadzha inherits many of the features of GRChombo and Chombo, but avoids the 
 - Accuracy: The metric values and their derivatives are calculated exactly at each point, whereas the matter fields are evolved with a 4th order Runge-Kutta time integration and their derivatives calculated with the same finite difference stencils used in GRChombo (4th and 6th order are currently available).
 - Boundary Conditions: GRDzhadzha inherits all the available boundary conditions in GRChombo, namely, extrapolating, Sommerfeld (radiative), reflective and periodic. 
 - Initial Conditions: The current examples provide initial data for real and complex scalar field matter. Since backreaction is ignored, there are no constraint equations to satisfy in the case of a scalar field, and the initial data can be freely specified.
-- Diagnostics:  GRDzhadzha has routines for verifying the conservation of matter energy densities, angular and linear momentum densities, and their fluxes, as discussed in \cite{Clough:2021qlv,Croft:2022gks}.
-- C++ class structure: Following the structure of GRChombo, the GRDzhadzha code is also written in C++ and uses object oriented programming (OOP) and templating.
+- Diagnostics:  GRDzhadzha has routines for verifying the conservation of matter energy densities, angular and linear momentum densities, and their fluxes, as discussed in [@Clough:2021qlv;@Croft:2022gks].
+- C++ class structure: Following the structure of GRChombo, GRDzhadzha is also written in C++ and uses object oriented programming (OOP) and templating.
 - Parallelism: GRChombo uses hybrid OpenMP/MPI parallelism with explicit vectorisation of the evolution equations via intrinsics, and is AVX-512 compliant.
-- Adaptive Mesh Refinement: The code inherits the flexible AMR grid structure of Chombo, which provides Berger-Oliger style \cite{Berger:1984zza} AMR with block-structured Berger-Rigoutsos grid generation \cite{Berger:1991}. Depending on the problem, the user may specify the refinement to be triggered by the matter or the background spacetime. One nice feature is that one does not need to resolve the horizon of the black hole unless matter is present at that location, so for an incoming wave a lot of storage and processing time can be saved by only resolving the wave, and not the spacetime background.
+- Adaptive Mesh Refinement: The code inherits the flexible AMR grid structure of Chombo, which provides Berger-Oliger style [@Berger:1984zza] AMR with block-structured Berger-Rigoutsos grid generation [@Berger:1991]. Depending on the problem, the user may specify the refinement to be triggered by the matter or the background spacetime [@Radia:2021smk]. One nice feature is that one does not need to resolve the horizon of the black hole unless matter is present at that location, so for an incoming wave a lot of storage and processing time can be saved by only resolving the wave, and not the spacetime background.
 
 # Statement of Need
 
@@ -109,7 +109,7 @@ So far the code has been used to study a range of fundamental physics problems:
 
 - Studying the dynamical friction effects on a Kerr black hole (Magnus effect) [@Wang:inprep]
 - Superradiance with self-interacting vector field [@Clough:2022ygm] and with spatially varying mass [@Wang:2022hra]
-- BH mergers in a wave dark matter environments [@Bamber:2022pbs]
+- BH mergers in wave dark matter environments [@Bamber:2022pbs;@Aurrekoetxea:inprep]
 
 
 # Acknowledgements
@@ -139,10 +139,10 @@ GRDzhadzha users have benefited from the provision of HPC resources from:
 
     - JUWELS, Juelich Supercomputing Centre (JSC), Germany
     
-  * (( the Argonne Leadership Computing Facility, including the Joint Laboratory for System Evaluation (JLSE), which is a U.S. Department of Energy (DOE) Office of Science User Facility supported under Contract DE-AC02-06CH11357.))
+  * the Argonne Leadership Computing Facility, including the Joint Laboratory for System Evaluation (JLSE), which is a U.S. Department of Energy (DOE) Office of Science User Facility supported under Contract DE-AC02-06CH11357.
 
   * the Texas Advanced Computing Center (TACC) at the University of Austin HPC and visualization resources URL: http://www.tacc.utexas.edu, and the San Diego Supercomputing Center (SDSC) URL: https://www.sdsc.edu, under project PHY-20043 and XSEDE Grant No. NSF-PHY-090003
 
-  * the Glamdring cluster, Astrophysics, Oxford, UK
+  * the Glamdring cluster, Astrophysics, Oxford, UK.
 
 # References
