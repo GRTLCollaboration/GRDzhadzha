@@ -109,7 +109,7 @@ So far the code has been used to study a range of fundamental physics problems:
 
 - Studying the dynamical friction effects on a Kerr black hole (Magnus effect) [@Wang:inprep]
 - Superradiance with self-interacting vector field [@Clough:2022ygm] and with spatially varying mass [@Wang:2022hra]
-- BH mergers in wave dark matter environments [@Bamber:2022pbs;@Aurrekoetxea:inprep]
+- BH mergers in wave dark matter environments [@Bamber:2022pbs]
 
 
 # Acknowledgements
