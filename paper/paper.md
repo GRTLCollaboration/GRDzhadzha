@@ -104,8 +104,8 @@ So far the code has been used to study a range of fundamental physics problems:
 - Growth of scalar hair around a Schwarzschild [@Clough:2019jpm] and a Kerr [@Bamber:2020bpu] black hole
 - Determining the relativistic drag forces on a Schwarzschild black hole moving through a cloud of scalar field dark matter [@Traykova:2021dua;@Traykova:2023qyv]
 
-![Formation of overdense tail of scalar dark matter behind a moving BH, due to dynamical friction \label{fig:friction}](Figures/friction.png){ width=45% }
-![The evolution of scalar clouds around black hole binaries in, the initial conditions were generated with a modified version of GRDzhadzha \label{fig:accretion}](Figures/accretion.png){ width=45% }
+![Formation of overdense tail of scalar dark matter behind a moving BH, due to dynamical friction \label{fig:friction}](Figures/friction.png){width=45%}
+![The evolution of scalar clouds around black hole binaries in, the initial conditions were generated with a modified version of GRDzhadzha \label{fig:accretion}](Figures/accretion.png){width=45%}
 
 - Studying the dynamical friction effects on a Kerr black hole (Magnus effect) [@Wang:inprep]
 - Superradiance with self-interacting vector field [@Clough:2022ygm] and with spatially varying mass [@Wang:2022hra]
@@ -115,7 +115,7 @@ So far the code has been used to study a range of fundamental physics problems:
 # Acknowledgements
 
 We thank the GRChombo collaboration (http://www.grchombo.org) for their support and code development work.
-JB acknowledges funding from a UK Science and Technology Facilities Council (STFC) studentship.
+JB and JM acknowledge funding from a UK Science and Technology Facilities Council (STFC) studentship.
 JCA acknowledges funding from the Beecroft Trust and The Queen’s College via an extraordinary Junior Research Fellowship (eJRF).
 A few of the projects using this code have received funding from the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (Grant Agreement No 693024).
 KC acknowledges funding from the UKRI Ernest Rutherford Fellowship (grant number ST/V003240/1). 
