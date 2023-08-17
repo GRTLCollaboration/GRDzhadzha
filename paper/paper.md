@@ -119,6 +119,7 @@ JCA acknowledges funding from the Beecroft Trust and The Queen’s College via a
 A few of the projects using this code have received funding from the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (Grant Agreement No 693024).
 KC acknowledges funding from the UKRI Ernest Rutherford Fellowship (grant number ST/V003240/1). 
 SEB is supported by a QMUL Principal studentship.
+ZW is supported by NSF Grants No.~AST-2006538, PHY-2207502, PHY-090003 and PHY-20043, and by NASA Grants No. 20-LPS20-0011 and 21-ATP21-0010.
 
 GRDzhadzha users have benefited from the provision of HPC resources from: 
  * DiRAC (Distributed Research utilising Advanced Computing) resources under the projects ACSP218, ACSP191, ACTP183, ACTP186 and ACTP316. Systems used include: 
