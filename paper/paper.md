@@ -113,21 +113,17 @@ So far the code has been used to study a range of fundamental physics problems:
 
 # Acknowledgements
 
-We thank the GRChombo collaboration (http://www.grchombo.org) for their support and code development work.
-JB and JM acknowledge funding from a UK Science and Technology Facilities Council (STFC) studentship.
-JCA acknowledges funding from the Beecroft Trust and The Queen’s College via an extraordinary Junior Research Fellowship (eJRF).
-A few of the projects using this code have received funding from the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (Grant Agreement No 693024).
-KC acknowledges funding from the UKRI Ernest Rutherford Fellowship (grant number ST/V003240/1). 
-SEB is supported by a QMUL Principal studentship.
-ZW is supported by NSF Grants No.~AST-2006538, PHY-2207502, PHY-090003 and PHY-20043, and by NASA Grants No. 20-LPS20-0011 and 21-ATP21-0010.
+We thank the GRChombo collaboration (http://www.grchombo.org) for their support and code development work. JB and JM acknowledge funding from a UK Science and Technology Facilities Council (STFC) studentship. JCA acknowledges funding from the Beecroft Trust and The Queen’s College via an extraordinary Junior Research Fellowship (eJRF). KC acknowledges funding from the UKRI Ernest Rutherford Fellowship (grant number ST/V003240/1). SEB is supported by a QMUL Principal studentship. ZW is supported by NSF Grants No.~AST-2006538, PHY-2207502, PHY-090003 and PHY-20043, and by NASA Grants No. 20-LPS20-0011 and 21-ATP21-0010. A few of the projects using this code have received funding from the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (Grant Agreement No 693024).
 
-GRDzhadzha users have benefited from the provision of HPC resources from: 
- * DiRAC (Distributed Research utilising Advanced Computing) resources under the projects ACSP218, ACSP191, ACTP183, ACTP186 and ACTP316. Systems used include: 
-    -  Cambridge Service for Data Driven Discovery (CSD3), part of which is operated by the University of Cambridge Research Computing on behalf of the STFC DiRAC HPC Facility (www.dirac.ac.uk). The DiRAC component of CSD3 was funded by BEIS capital funding via STFC capital grants ST/P002307/1 and ST/R002452/1 and STFC operations grant ST/R00689X/1. DiRAC is part of the National e-Infrastructure.
+GRDzhadzha users have benefited from the provision of HPC resources from:
+
+ * DiRAC (Distributed Research utilising Advanced Computing) resources under the projects ACSP218, ACSP191, ACTP183, ACTP186 and ACTP316. Systems used include:
+   
+    - Cambridge Service for Data Driven Discovery (CSD3), part of which is operated by the University of Cambridge Research Computing on behalf of the STFC DiRAC HPC Facility (www.dirac.ac.uk). The DiRAC component of CSD3 was funded by BEIS capital funding via STFC capital grants ST/P002307/1 and ST/R002452/1 and STFC operations grant ST/R00689X/1. DiRAC is part of the National e-Infrastructure.
 
     - DiRAC Data Intensive service at Leicester, operated by the University of Leicester IT Services, which forms part of the STFC DiRAC HPC Facility (www.dirac.ac.uk). The equipment was funded by BEIS capital funding via STFC capital grants ST/K000373/1 and ST/R002363/1 and STFC DiRAC Operations grant ST/R001014/1. DiRAC is part of the National e-Infrastructure.
 
-    -  DiRAC at Durham facility managed by the Institute for Computational Cosmology on behalf of the STFC DiRAC HPC Facility (www.dirac.ac.uk). The equipment was funded by BEIS capital funding via STFC capital grants ST/P002293/1 and ST/R002371/1, Durham University and STFC operations grant ST/R000832/1. DiRAC is part of the National e-Infrastructure.
+    - DiRAC at Durham facility managed by the Institute for Computational Cosmology on behalf of the STFC DiRAC HPC Facility (www.dirac.ac.uk). The equipment was funded by BEIS capital funding via STFC capital grants ST/P002293/1 and ST/R002371/1, Durham University and STFC operations grant ST/R000832/1. DiRAC is part of the National e-Infrastructure.
 
     - DiRAC Complexity system, operated by the University of Leicester IT Services, which forms part of the STFC DiRAC HPC Facility (www.dirac.ac.uk). This equipment is funded by BIS National E-Infrastructure capital grant ST/K000373/1 and STFC DiRAC Operations grant ST/K0003259/1. DiRAC is part of the National e-Infrastructure.
     
