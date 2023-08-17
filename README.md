@@ -1,4 +1,4 @@
-# GRChombo
+# GRDzhadzha
 
 [![status](https://joss.theoj.org/papers/af52e7f1b7637bfa68818fde7c1a34de/status.svg)](https://joss.theoj.org/papers/af52e7f1b7637bfa68818fde7c1a34de)
 [![DOI](https://zenodo.org/badge/118786602.svg)](https://zenodo.org/badge/latestdoi/118786602)
@@ -27,8 +27,20 @@ for our coding style and testing policy before filing a pull request.
 GRDzhadzha is licensed under the BSD 3-Clause License. Please see LICENSE for details.
 
 ## Citation
-A paper for this code is in preparation. In the meantime, please cite the GRChombo JOSS publication using the following bibtex reference:
+If you use GRDzhadzha as part of a paper, please cite our paper which has been sumitted for review in the Journal of Open Source Software:
 
+```
+@article{Aurrekoetxea:2023fhl,
+    author = "Aurrekoetxea, Josu C. and Bamber, Jamie and Brady, Sam E. and Clough, Katy and Helfer, Thomas and Marsden, James and Traykova, Dina and Wang, Zipeng",
+    title = "{GRDzhadzha: A code for evolving relativistic matter on analytic metric backgrounds}",
+    eprint = "2308.08299",
+    archivePrefix = "arXiv",
+    primaryClass = "gr-qc",
+    month = "8",
+    year = "2023"
+}
+```
+as well as the GRChombo JOSS publication, which has the following BibTeX reference:
 ```
 @article{Andrade2021,
   doi = {10.21105/joss.03703},
