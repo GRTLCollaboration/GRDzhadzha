@@ -49,6 +49,7 @@ affiliations:
   index: 5
 date: 14 Aug 2023
 bibliography: paper.bib
+csl: https://www.zotero.org/styles/chicago-fullnote-bibliography
 
 ---
 
