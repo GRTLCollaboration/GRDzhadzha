@@ -100,14 +100,19 @@ Since the interface and structure of the code is very close to the GRChombo nume
 # Key research projects using GRChombo
 
 So far the code has been used to study a range of fundamental physics problems:
+
 - Studying the interference patterns in neutrino flavour oscillations around a static black hole [@Alexandre:2018crg]
+
 - Growth of scalar hair around a Schwarzschild [@Clough:2019jpm] and a Kerr [@Bamber:2020bpu] black hole
+  
 - Determining the relativistic drag forces on a Schwarzschild black hole moving through a cloud of scalar field dark matter [@Traykova:2021dua;@Traykova:2023qyv]
 
 ![Formation of overdense tail of scalar dark matter behind a moving BH, due to dynamical friction](Figures/friction.png){width=45%} ![The evolution of scalar clouds around black hole binaries in, the initial conditions were generated with a modified version of GRDzhadzha](Figures/accretion.png){width=45%}
 
 - Studying the dynamical friction effects on a Kerr black hole (Magnus effect) [@Wang:inprep]
+  
 - Superradiance with self-interacting vector field [@Clough:2022ygm] and with spatially varying mass [@Wang:2022hra]
+  
 - BH mergers in wave dark matter environments [@Bamber:2022pbs]
 
 
