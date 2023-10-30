@@ -13,6 +13,9 @@
 #include "GRParmParse.hpp"
 #include "SphericalExtraction.hpp"
 
+// add this type alias here for backwards compatibility
+using extraction_params_t = spherical_extraction_params_t;
+
 //! Class to handle the simulations params that are always required in
 //! simulations with a fixed background
 class FixedBGSimulationParametersBase : public ChomboParameters
@@ -166,7 +169,7 @@ class FixedBGSimulationParametersBase : public ChomboParameters
 
     // Collection of parameters necessary for the extraction
     bool activate_extraction;
-    SphericalExtraction::params_t extraction_params;
+    spherical_extraction_params_t extraction_params;
 
     std::string data_path;
 };

@@ -67,7 +67,7 @@ The code is based on the publicly available NR code GRChombo [@Clough:2015sqa;@A
 
 In the following sections we discuss the key features and applications of the code, and give an indication of the efficiencies that can be achieved compared to a standard NR code.
 
-# Key features of GRChombo
+# Key features of GRDzhadzha
 
 GRDzhadzha inherits many of the features of GRChombo and Chombo, but avoids the complications introduced when evolving the metric. The key features are:
 
@@ -87,7 +87,7 @@ GRDzhadzha inherits many of the features of GRChombo and Chombo, but avoids the 
 
 As mentioned in the introduction, any numerical relativity code like GRChombo can undertake these simulations. Examples of these include the Einstein Toolkit (http://einsteintoolkit.org/), with its related Cactus (http://cactuscode.org) [@Loffler:2011ay;@Schnetter:2003rb], and Kranc (http://kranccode.org) [@Husa:2004ip] infrastructure used by LEAN [@Sperhake:2006cy;@Zilhao:2010sr] and Canuda (https://bitbucket.org/canuda) [@Witek:2018dmd]. Other notable but non-public codes include BAM [@Bruegmann:2006ulg;@Marronetti:2007ya], AMSS-NCKU [@Galaviz:2010mx], PAMR/AMRD and HAD [@East:2011aa;@Neilsen:2007ua]. Codes such as SPeC [@Pfeiffer:2002wt] and bamps [@Hilditch:2015aba] implement the generalised harmonic formulation of the Einstein equations using a pseudospectral method, and discontinuous Galerkin methods are used in SpECTRE (https://spectre-code.org) [@deppe_nils_2021_4734670;@Kidder:2016hev;@Cao:2018vhw]. NRPy (http://astro.phys.wvu.edu/bhathome) [@Ruchlin:2017com] is a code aimed for use on non-HPC systems, which generate C code from Python, and uses adapted coordinate systems to minimise computational costs. CosmoGRaPH (https://cwru-pat.github.io/cosmograph) [@Mertens:2015ttp] and GRAMSES [@Barrera-Hinojosa:2019mzo] are among several NR codes targeted at cosmological applications (see [@Adamek:2020jmr] for a comparison) and which also employ particle methods. Simflowny (https://bitbucket.org/iac3/simflowny/wiki/Home) [@Palenzuela:2018sly], like CosmoGRaPH, is based on the SAMRAI infrastructure, and has targeted fluid and MHD applications. GRAthena++ [@Daszuta:2021ecf] makes use of oct-tree AMR to maximise scaling.
 
-Whilst there exist many NR codes (both public and private), which can in principle be used to perform simulations of fundamental fields on a fixed BH background, most do not have the efficiency advantages of GRDzhadzha^[As far as we are aware, only NRPy and Canuda offer the same functionality. Some private codes also have such capabilities (see e.g.~[@Traykova:2017zrn], based on [@Braden:2014cra]). Other codes may have similar features that are not explicitly separated out, so this makes it difficult to identify them.].
+Whilst there exist many NR codes (both public and private), which can in principle be used to perform simulations of fundamental fields on a fixed BH background, most do not have the efficiency advantages of GRDzhadzha^[As far as we are aware, only NRPy and Canuda offer the same functionality. Some private codes also have such capabilities (see e.g. [@Traykova:2017zrn], based on [@Braden:2014cra]). Other codes may have similar features that are not explicitly separated out, so this makes it difficult to identify them.].
 In particular, the fact that the ADM variables and their derivatives are not evolved or stored on the grid saves both a lot of simulation run time, as well as output file storage space.
 To get a rough idea of the improvement in storage and CPU hours one can achieve, we performed a short test simulation using GRDzhadzha and compared it simulation performed using the full NR capabilities of GRChombo.
 We find that on average GRDzhadzha is 15-20 times faster than GRChombo and requires about 3 times less file storage.
@@ -97,7 +97,7 @@ It is important to note that whilst backreaction is neglected in the metric calc
 
 Since the interface and structure of the code is very close to the GRChombo numerical relativity code, it is possible for the results of these fixed background simulations to be used as initial data in full numerical relativity simulations (and vice versa), as was done in [@Bamber:2022pbs]. Therefore if the backreaction is found to be significant due to some growth mechanism, the simulation can be continued in full NR.
 
-# Key research projects using GRChombo
+# Key research projects using GRDzhadzha
 
 So far the code has been used to study a range of fundamental physics problems:
 
