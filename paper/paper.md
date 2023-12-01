@@ -71,10 +71,8 @@ In the following sections we discuss the key features and applications of the co
 
 GRDzhadzha inherits many of the features of GRChombo and Chombo, but avoids the complications introduced when evolving the metric. The key features are:
 
-- Background metrics: The currently available backgrounds in the code are a static Kerr black hole in horizon penetrating Kerr-Schild coordinates and a boosted black hole in isotropic Schwarzschild coordinates. These backgrounds can easily be adapted to other coordinate systems for different problems. The code is templated over the background so it can easily be changed without major code modification.
-
+- Background metrics: The currently available backgrounds in the code are a static Kerr black hole in horizon penetrating Kerr-Schild coordinates and a boosted black hole in isotropic Schwarzschild coordinates. As the code is templated over the background, it can easily be changed or adapted to other coordinate systems for different problems without major code modification.
 - Matter evolution: The code calculates the evolution for the matter variables on the metric background using an ADM decomposition [@Arnowitt:1962hi;@York:1978gql] in space and time - currently we have implemented a real and a complex scalar field as examples of matter types. Again the code is templated over the matter class so that the matter types can be exchanged with minimal modification.
-
 - Accuracy: The metric values and their derivatives are calculated exactly at each point, whereas the matter fields are evolved with a 4th order Runge-Kutta time integration and their derivatives calculated with the same finite difference stencils used in GRChombo (4th and 6th order are currently available).
 - Boundary Conditions: GRDzhadzha inherits all the available boundary conditions in GRChombo, namely, extrapolating (extrapolating the field value radially from values within the numerical grid), Sommerfeld (radiative) [@Sommerfeld1912], reflective and periodic. 
 - Initial Conditions: The current examples provide initial data for real and complex scalar field matter. Since backreaction is ignored, there are no constraint equations to satisfy in the case of a scalar field, and the initial data can be freely specified.
