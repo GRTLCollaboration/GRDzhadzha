@@ -7,9 +7,9 @@
 verbosity = 0
 
 # location / naming of output files
-# output_path = "" # Main path for all files. Must exist!
-chk_prefix = BoostedBH_
-plot_prefix = BoostedBHp_
+output_path = "/pfs/work7/workspace/scratch/hd_pb293-WS_GRChombo/prod/Scalar_DynamicalFriction_mu_05_v_05_23217568"
+chk_prefix = "BoostedBH_"
+plot_prefix = "BoostedBHp_"
 # restart_file = BoostedBH_000000.3d.hdf5
 
 # HDF5files are written every dt = L/N*dt_multiplier*checkpoint_interval
@@ -37,12 +37,12 @@ print_progress_only_to_rank_0 = 1
 # Initial Data parameters
 
 # Scalar field Initial data
-scalar_mass = 0.05
+scalar_mass = 0.5
 scalar_amplitude = 0.1
 
 # Boosted BH initial data, boost in x direction
 bh_mass = 1.0
-bh_velocity = 0.3 # in unit of c (i.e. 0<v<1)
+bh_velocity = 0.5 # in unit of c (i.e. 0<v<1)
 
 ################################################
 # Diagnostic extraction parameters
@@ -142,7 +142,7 @@ extrapolation_order = 0
 
 # dt will be dx*dt_multiplier on each grid level
 dt_multiplier = 0.1
-stop_time = 250.0
+stop_time = 2000.0
 # max_steps = 4
 
 nan_check = 1
