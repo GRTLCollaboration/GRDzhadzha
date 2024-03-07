@@ -45,7 +45,7 @@ void BoostedBHProcaLevel::initialData()
                    SKIP_GHOST_CELLS);
 
     // Now set the actual evolution variables
-    InitialProcaData initial_pf(m_p.proca_amplitude, m_p.proca_mass, m_p.center,
+    InitialProcaData initial_pf(m_p.proca_amplitude, m_p.center,
                                 m_p.bg_params, m_dx);
     BoxLoops::loop(initial_pf, m_state_new, m_state_new, FILL_GHOST_CELLS);
 

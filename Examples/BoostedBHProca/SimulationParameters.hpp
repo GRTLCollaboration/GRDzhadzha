@@ -28,7 +28,7 @@ class SimulationParameters : public FixedBGSimulationParametersBase
     {
         // Initial PF
         pp.load("proca_mass", proca_mass);
-        pp.load("field_amplitude", proca_amplitude);
+        pp.load("proca_amplitude", proca_amplitude);
         pp.load("proca_damping", proca_damping);
 
         // BH data
