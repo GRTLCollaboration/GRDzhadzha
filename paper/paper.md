@@ -45,7 +45,7 @@ affiliations:
   index: 3
 - name: Department of Applied Mathematics and Theoretical Physics (DAMTP), University of Cambridge, Centre for Mathematical Sciences, Wilberforce Road, Cambridge CB3 0WA, United Kingdom
   index: 4
-- name: Max Planck Institute for Gravitational Physics (Albert Einstein Institute), Am M\"uhlenberg 1, Potsdam-Golm, 14476, Germany
+- name: Max Planck Institute for Gravitational Physics (Albert Einstein Institute), Am Mühlenberg 1, Potsdam-Golm, 14476, Germany
   index: 5
 date: 14 Aug 2023
 bibliography: paper.bib
@@ -54,11 +54,11 @@ bibliography: paper.bib
 
 # Summary
 
-Strong gravity environments such as those around black holes provide us with unique opportunities to study questions in fundamental physics, such as the existence and properties of dark matter and dark energy. Characterising the behaviour of new fields and other types of matter in highly relativistic environments generally necessitates numerical simulations unless one imposes significant symmetries.
+Strong gravity environments such as those around black holes provide us with unique opportunities to study questions in fundamental physics (see e.g [@Macedo:2013qea;@Barausse:2014pra;@Barack:2018yly;@Bertone:2019irm]), such as the existence and properties of dark matter and dark energy. Characterising the behaviour of new fields and other types of matter in highly relativistic environments usually necessitates numerical simulations unless one imposes significant symmetries.
 Therefore we need to turn to numerical methods to study the dynamics and evolution of the complex systems of black holes and other compact objects in different environments, using numerical relativity (NR).
 These methods allow us to split the four-dimensional Einstein equations into three-dimensional spatial hypersurfaces and a time-like direction.
 Then if a solution is known at the initial spatial hypersurface, it can be numerically evolved in time, where an analytic solution no longer exists.
-Whilst the tools of NR provide the most complete (i.e., approximation free) method for evolving matter in such environments, in many cases of interest, the density of the matter components is negligible in comparison to the curvature scales of the background spacetime metric, in which case it is a reasonable approximation to neglect their backreaction on it and treat the metric as fixed (assuming the background itself is stationary or otherwise has an analytic form).
+Whilst the tools of NR provide the most complete (i.e., approximation free) method for evolving matter in such environments, in many cases of interest, the density of the matter components is negligible in comparison to the curvature scales of the background spacetime metric [@Clough:2021qlv]. In such cases it is a reasonable approximation to neglect the backreaction of the matter environment onto the metric and treat it as fixed (assuming the background itself is stationary or otherwise has an analytic form).
 
 In such cases, one does not need to evolve all the metric degrees of freedom as in NR, but only the additional matter ones. 
 It is possible to do this using any NR code in a trivial way by setting the evolution of the metric variables to zero, but this is clearly rather inefficient. This code, GRDzhadzha, directly evolves the matter variables on an analytically specified background.
@@ -71,17 +71,15 @@ In the following sections we discuss the key features and applications of the co
 
 GRDzhadzha inherits many of the features of GRChombo and Chombo, but avoids the complications introduced when evolving the metric. The key features are:
 
-- Background metrics: The currently available backgrounds in the code are a static Kerr black hole in horizon penetrating Kerr-Schild coordinates and a boosted black hole in isotropic Schwarzschild coordinates. These backgrounds can easily be adapted to other coordinate systems for different problems. The code is templated over the background so it can easily be changed without major code modification.
-
-- Matter evolution: The code calculates the evolution for the matter variables on the metric background using an ADM decomposition in space and time - currently we have implemented a real and a complex scalar field as examples of matter types. Again the code is templated over the matter class so that the matter types can be exchanged with minimal modification.
-
-- Accuracy: The metric values and their derivatives are calculated exactly at each point, whereas the matter fields are evolved with a 4th order Runge-Kutta time integration and their derivatives calculated with the same finite difference stencils used in GRChombo (4th and 6th order are currently available).
-- Boundary Conditions: GRDzhadzha inherits all the available boundary conditions in GRChombo, namely, extrapolating, Sommerfeld (radiative), reflective and periodic. 
+- Background metrics: The currently available backgrounds in the code are a static Kerr black hole in horizon-penetrating Kerr--Schild coordinates and a boosted black hole in isotropic Schwarzschild coordinates. As the code is templated over the background, it can easily be changed or adapted to other coordinate systems for different problems without major code modification.
+- Matter evolution: The code calculates the evolution for the matter variables on the metric background using an ADM decomposition [@Arnowitt:1962hi;@York:1978gql] in space and time. Currently, we have implemented a real and a complex scalar field as examples of matter types. Again the code is templated over the matter class so that the matter types can be exchanged with minimal modification.
+- Accuracy: The metric values and their derivatives are calculated exactly at each point, whereas the matter fields are evolved with a 4th order Runge--Kutta time integration and their derivatives calculated with the same finite difference stencils used in GRChombo (4th and 6th order are currently available).
+- Boundary Conditions: GRDzhadzha inherits all the available boundary conditions in GRChombo, namely, extrapolating (extrapolating the field value radially from values within the numerical grid), Sommerfeld (radiative) [@Sommerfeld1912], reflective and periodic. 
 - Initial Conditions: The current examples provide initial data for real and complex scalar field matter. Since backreaction is ignored, there are no constraint equations to satisfy in the case of a scalar field, and the initial data can be freely specified.
 - Diagnostics:  GRDzhadzha has routines for verifying the conservation of matter energy densities, angular and linear momentum densities, and their fluxes, as discussed in [@Clough:2021qlv;@Croft:2022gks].
 - C++ class structure: Following the structure of GRChombo, GRDzhadzha is also written in C++ and uses object oriented programming (OOP) and templating.
 - Parallelism: GRChombo uses hybrid OpenMP/MPI parallelism with explicit vectorisation of the evolution equations via intrinsics, and is AVX-512 compliant.
-- Adaptive Mesh Refinement: The code inherits the flexible AMR grid structure of Chombo, which provides Berger-Oliger style [@Berger:1984zza] AMR with block-structured Berger-Rigoutsos grid generation [@Berger:1991]. Depending on the problem, the user may specify the refinement to be triggered by the matter or the background spacetime [@Radia:2021smk]. One nice feature is that one does not need to resolve the horizon of the black hole unless matter is present at that location, so for an incoming wave a lot of storage and processing time can be saved by only resolving the wave, and not the spacetime background.
+- Adaptive Mesh Refinement: The code inherits the flexible AMR grid structure of Chombo, which provides Berger--Oliger style [@Berger:1984zza] AMR with block-structured Berger--Rigoutsos grid generation [@Berger:1991]. Depending on the problem, the user may specify the refinement to be triggered by the matter or the background spacetime [@Radia:2021smk]. One nice feature is that one does not need to resolve the horizon of the black hole unless matter is present at that location, so for an incoming wave a lot of storage and processing time can be saved by only resolving the wave, and not the spacetime background.
 
 # Statement of Need
 
@@ -89,8 +87,8 @@ As mentioned in the introduction, any numerical relativity code like GRChombo ca
 
 Whilst there exist many NR codes (both public and private), which can in principle be used to perform simulations of fundamental fields on a fixed BH background, most do not have the efficiency advantages of GRDzhadzha^[As far as we are aware, only NRPy and Canuda offer the same functionality. Some private codes also have such capabilities (see e.g. [@Traykova:2017zrn], based on [@Braden:2014cra]). Other codes may have similar features that are not explicitly separated out, so this makes it difficult to identify them.].
 In particular, the fact that the ADM variables and their derivatives are not evolved or stored on the grid saves both a lot of simulation run time, as well as output file storage space.
-To get a rough idea of the improvement in storage and CPU hours one can achieve, we performed a short test simulation using GRDzhadzha and compared it simulation performed using the full NR capabilities of GRChombo.
-We find that on average GRDzhadzha is 15-20 times faster than GRChombo and requires about 3 times less file storage.
+To get a rough idea of the improvement in storage and CPU hours one can achieve, we performed a short test simulation using GRDzhadzha and compared it to a simulation performed using the full NR capabilities of GRChombo.
+We find that on average GRDzhadzha is 15--20 times faster than GRChombo and requires about 3 times less file storage.
 An additional advantage of this code versus using a full NR code, for problems with negligible backreaction, is that here the metric variables are calculated analytically at every point on the grid, which significantly decreases the margin for numerical error, and means that resolution can be focussed on the matter location, and not the spacetime curvature.
 
 It is important to note that whilst backreaction is neglected in the metric calculation, this does not mean that the backreaction effects cannot be calculated. Fixed background simulations provide a first order (in the density) estimate of the gravitational effects caused by the matter, taking into account their relativistic behaviour. This is discussed further in [@Clough:2021qlv] and some examples using the approach are [@Bamber:2020bpu;@Traykova:2021dua;@Traykova:2023qyv]. 
@@ -108,6 +106,7 @@ So far the code has been used to study a range of fundamental physics problems:
 - Determining the relativistic drag forces on a Schwarzschild black hole moving through a cloud of scalar field dark matter [@Traykova:2021dua;@Traykova:2023qyv]
 
 ![Formation of overdense tail of scalar dark matter behind a moving BH, due to dynamical friction](Figures/friction.png){width=45%} ![The evolution of scalar clouds around black hole binaries in, the initial conditions were generated with a modified version of GRDzhadzha](Figures/accretion.png){width=45%}
+*Some examples of the physics studied with GRDzhadzha. The left image is taken from [@Traykova:2021dua] in which the dynamical friction of light dark matter was studied in the relativistic regime. The right image is from a study of the scalar clouds around black hole binaries in [@Bamber:2022pbs], in which the initial conditions were generated with a modified version of GRDzhadzha.*
 
 - Studying the dynamical friction effects on a Kerr black hole (Magnus effect) [@Wang:inprep]
   
