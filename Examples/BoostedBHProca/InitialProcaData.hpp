@@ -60,7 +60,7 @@ class InitialProcaData
         // set auxiliary field values
         vars.Zvec = 0.0;
 
-        // set electric field values
+        // set electric field values. Maybe need to set E^i = Avec_j K^{ji} for consistent initial conditions?
         vars.Evec[0] = 0.0;
         vars.Evec[1] = 0.0;
         vars.Evec[2] = 0.0;
