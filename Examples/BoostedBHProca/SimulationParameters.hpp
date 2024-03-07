@@ -39,6 +39,9 @@ class SimulationParameters : public FixedBGSimulationParametersBase
         // Volume extraction radii
         pp.load("inner_r", inner_r, extraction_params.extraction_radii[0]);
         pp.load("outer_r", outer_r, extraction_params.extraction_radii[1]);
+
+        //Extraction filename
+        pp.load("integrals_filename", integrals_filename, (std::string)"Integrals"); //type cast char[] to std::string
     }
 
     void check_params()
@@ -73,6 +76,9 @@ class SimulationParameters : public FixedBGSimulationParametersBase
     // InitialProcaData::params_t initial_params;
     // Collection of parameters necessary for the metric background
     BoostedBH::params_t bg_params;
+
+    //Integrals filename
+    std::string integrals_filename;
 };
 
 #endif /* SIMULATIONPARAMETERS_HPP_ */
