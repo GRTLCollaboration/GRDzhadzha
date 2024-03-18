@@ -107,11 +107,11 @@ So far the code has been used to study a range of fundamental physics problems:
 
 ![Examples of the physics studied with GRDzhadzha. The left image shows the formation of overdense tail of scalar dark matter behind a moving BH, due to dynamical friction, from @Traykova:2021dua. The right image is from a study of the scalar clouds around black hole binaries in @Bamber:2022pbs, in which the initial conditions were generated with a modified version of GRDzhadzha.](Figures/df_accretion.png) 
 
-- Studying the dynamical friction effects on a Kerr black hole (Magnus effect) [@Wang:inprep]
+- Studying the dynamical friction effects on a Kerr black hole (Magnus effect) [Wang:2024cej]
   
 - Superradiance with self-interacting vector field [@Clough:2022ygm] and with spatially varying mass [@Wang:2022hra]
   
-- BH mergers in wave dark matter environments [@Bamber:2022pbs]
+- BH mergers in wave dark matter environments [@Bamber:2022pbs,Aurrekoetxea:2023jwk]
 
 
 # Acknowledgements
