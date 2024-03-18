@@ -22,7 +22,7 @@
 // Problem specific includes
 #include "EnergyConservation.hpp"
 #include "ExcisionDiagnostics.hpp"
-#include "ExcisionEvolution.hpp"
+#include "ExcisionProcaEvolution.hpp"
 #include "FluxExtraction.hpp"
 #include "InitialProcaData.hpp"
 #include "LinearMomConservation.hpp"
@@ -40,26 +40,37 @@ void BoostedBHProcaLevel::initialData()
     // This is just for the diagnostics
     SetValue set_zero(0.0);
     BoostedBH boosted_bh(m_p.bg_params, m_dx); // just calculates chi
-    auto compute_pack = make_compute_pack(set_zero, boosted_bh); //pack up the classes into a single BoxLoops call
-    BoxLoops::loop(compute_pack, m_state_diagnostics, m_state_diagnostics,
-                   SKIP_GHOST_CELLS); //Loop over box cells, skipping the ghost cells
+    auto compute_pack = make_compute_pack(
+        set_zero,
+        boosted_bh); // pack up the classes into a single BoxLoops call
+    BoxLoops::loop(
+        compute_pack, m_state_diagnostics, m_state_diagnostics,
+        SKIP_GHOST_CELLS); // Loop over box cells, skipping the ghost cells
 
     // Now set the actual evolution variables
-    InitialProcaData initial_pf(m_p.proca_amplitude, m_p.center,
-                                m_p.bg_params, m_dx, m_p.proca_initial_data_profile); //Initial proca field data
-    BoxLoops::loop(initial_pf, m_state_new, m_state_new, FILL_GHOST_CELLS); //Loop over box cells, filling the ghost cells
+    InitialProcaData initial_pf(
+        m_p.proca_amplitude, m_p.center, m_p.bg_params, m_dx,
+        m_p.proca_initial_data_profile); // Initial proca field data
+    BoxLoops::loop(
+        initial_pf, m_state_new, m_state_new,
+        FILL_GHOST_CELLS); // Loop over box cells, filling the ghost cells
 
     // now the gauss constraint
-    fillAllGhosts(); //Is this necessary here?
-    ProcaConstraint enforce_constraint(m_p.center, m_p.bg_params,
-                                       m_p.proca_mass, m_dx); //This sets the scalar part of the Proca field, using the gauss constraint
-    BoxLoops::loop(enforce_constraint, m_state_new, m_state_new,
-                   EXCLUDE_GHOST_CELLS); //Loop over box cells, excluding the ghost cells
+    fillAllGhosts(); // Is this necessary here?
+    ProcaConstraint enforce_constraint(
+        m_p.center, m_p.bg_params, m_p.proca_mass,
+        m_dx); // This sets the scalar part of the Proca field, using the gauss
+               // constraint
+    BoxLoops::loop(
+        enforce_constraint, m_state_new, m_state_new,
+        EXCLUDE_GHOST_CELLS); // Loop over box cells, excluding the ghost cells
 
     // excise evolution vars within horizon, turn off simd vectorisation
-    BoxLoops::loop(
-        ExcisionEvolution<ProcaField, BoostedBH>(m_dx, m_p.center, boosted_bh),
-        m_state_new, m_state_new, SKIP_GHOST_CELLS, disable_simd()); //Now excise the evolution variables inside the horizon
+    BoxLoops::loop(ExcisionProcaEvolution<ProcaField, BoostedBH>(
+                       m_dx, m_p.center, boosted_bh),
+                   m_state_new, m_state_new, SKIP_GHOST_CELLS,
+                   disable_simd()); // Now excise the evolution variables inside
+                                    // the horizon
 }
 
 void BoostedBHProcaLevel::specificPostTimeStep()
@@ -105,8 +116,8 @@ void BoostedBHProcaLevel::specificPostTimeStep()
             double rhoLinMom_sum = amr_reductions.sum(c_rhoLinMom);
             double sourceLinMom_sum = amr_reductions.sum(c_sourceLinMom);
 
-            SmallDataIO integral_file(m_p.data_path + m_p.integrals_filename, m_dt,
-                                      m_time, m_restart_time,
+            SmallDataIO integral_file(m_p.data_path + m_p.integrals_filename,
+                                      m_dt, m_time, m_restart_time,
                                       SmallDataIO::APPEND, first_step);
             // remove any duplicate data if this is post restart
             integral_file.remove_duplicate_time_data();
@@ -117,9 +128,8 @@ void BoostedBHProcaLevel::specificPostTimeStep()
             // write data
             if (first_step)
             {
-                integral_file.write_header_line({"Energy",
-                                                 "Lin. Mom.",
-                                                 "Lin. Mom. Source"});
+                integral_file.write_header_line(
+                    {"Energy", "Lin. Mom.", "Lin. Mom. Source"});
             }
             integral_file.write_time_data_line(data_for_writing);
 
@@ -150,9 +160,9 @@ void BoostedBHProcaLevel::specificEvalRHS(GRLevelData &a_soln,
     BoxLoops::loop(my_evolution, a_soln, a_rhs, SKIP_GHOST_CELLS);
 
     // Do excision within horizon, don't use vectorisation
-    BoxLoops::loop(
-        ExcisionEvolution<ProcaField, BoostedBH>(m_dx, m_p.center, boosted_bh),
-        a_soln, a_rhs, SKIP_GHOST_CELLS, disable_simd());
+    BoxLoops::loop(ExcisionProcaEvolution<ProcaField, BoostedBH>(
+                       m_dx, m_p.center, boosted_bh),
+                   a_soln, a_rhs, SKIP_GHOST_CELLS, disable_simd());
 }
 
 // Note that for the fixed grids this only happens on the initial timestep
