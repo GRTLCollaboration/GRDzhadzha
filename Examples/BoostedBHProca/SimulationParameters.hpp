@@ -30,6 +30,7 @@ class SimulationParameters : public FixedBGSimulationParametersBase
         pp.load("proca_mass", proca_mass);
         pp.load("proca_amplitude", proca_amplitude);
         pp.load("proca_damping", proca_damping);
+        pp.load("proca_initial_data_profile", proca_initial_data_profile, std::string("uniform-x"));
 
         // BH data
         pp.load("bh_mass", bg_params.mass, 1.0);
@@ -79,6 +80,8 @@ class SimulationParameters : public FixedBGSimulationParametersBase
 
     //Integrals filename
     std::string integrals_filename;
+
+    std::string proca_initial_data_profile;
 };
 
 #endif /* SIMULATIONPARAMETERS_HPP_ */

@@ -40,26 +40,26 @@ void BoostedBHProcaLevel::initialData()
     // This is just for the diagnostics
     SetValue set_zero(0.0);
     BoostedBH boosted_bh(m_p.bg_params, m_dx); // just calculates chi
-    auto compute_pack = make_compute_pack(set_zero, boosted_bh);
+    auto compute_pack = make_compute_pack(set_zero, boosted_bh); //pack up the classes into a single BoxLoops call
     BoxLoops::loop(compute_pack, m_state_diagnostics, m_state_diagnostics,
-                   SKIP_GHOST_CELLS);
+                   SKIP_GHOST_CELLS); //Loop over box cells, skipping the ghost cells
 
     // Now set the actual evolution variables
     InitialProcaData initial_pf(m_p.proca_amplitude, m_p.center,
-                                m_p.bg_params, m_dx);
-    BoxLoops::loop(initial_pf, m_state_new, m_state_new, FILL_GHOST_CELLS);
+                                m_p.bg_params, m_dx, m_p.proca_initial_data_profile); //Initial proca field data
+    BoxLoops::loop(initial_pf, m_state_new, m_state_new, FILL_GHOST_CELLS); //Loop over box cells, filling the ghost cells
 
     // now the gauss constraint
-    fillAllGhosts();
+    fillAllGhosts(); //Is this necessary here?
     ProcaConstraint enforce_constraint(m_p.center, m_p.bg_params,
-                                       m_p.proca_mass, m_dx);
+                                       m_p.proca_mass, m_dx); //This sets the scalar part of the Proca field, using the gauss constraint
     BoxLoops::loop(enforce_constraint, m_state_new, m_state_new,
-                   EXCLUDE_GHOST_CELLS);
+                   EXCLUDE_GHOST_CELLS); //Loop over box cells, excluding the ghost cells
 
     // excise evolution vars within horizon, turn off simd vectorisation
     BoxLoops::loop(
         ExcisionEvolution<ProcaField, BoostedBH>(m_dx, m_p.center, boosted_bh),
-        m_state_new, m_state_new, SKIP_GHOST_CELLS, disable_simd());
+        m_state_new, m_state_new, SKIP_GHOST_CELLS, disable_simd()); //Now excise the evolution variables inside the horizon
 }
 
 void BoostedBHProcaLevel::specificPostTimeStep()
@@ -118,8 +118,8 @@ void BoostedBHProcaLevel::specificPostTimeStep()
             if (first_step)
             {
                 integral_file.write_header_line({"Energy",
-                                                 "Linear_Momentum",
-                                                 "Linear_Momentum_Source"});
+                                                 "Lin. Mom.",
+                                                 "Lin. Mom. Source"});
             }
             integral_file.write_time_data_line(data_for_writing);
 

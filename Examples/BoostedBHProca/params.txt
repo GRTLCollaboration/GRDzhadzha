@@ -7,18 +7,18 @@
 verbosity = 0
 
 # location / naming of output files
-output_path = "/pfs/work7/workspace/scratch/hd_pb293-WS_GRChombo/testing/Proca_DynamicalFriction_mu_05_v_03_23217939"
-chk_prefix = BoostedBHProca_
-plot_prefix = BoostedBHProcap_
+output_path = "/pfs/work7/workspace/scratch/hd_pb293-WS_GRChombo/testing/Proca_DynamicalFriction_mu_01_v_04_23242757"
+chk_prefix = "BoostedBHProca_"
+plot_prefix = "BoostedBHProcap_"
 # restart_file = BoostedBHProca_000000.3d.hdf5
 
 # HDF5files are written every dt = L/N*dt_multiplier*checkpoint_interval
 checkpoint_interval = 100
 # set to 0 to turn off plot files (except at t=0 and t=stop_time)
 # set to -1 to never ever print plotfiles
-plot_interval = 10
-num_plot_vars = 3
-plot_vars = phi_Re rhoLinMom sourceLinMom
+plot_interval = 1
+num_plot_vars = 6
+plot_vars = chi rhoEnergy fluxEnergy rhoLinMom fluxLinMom sourceLinMom
 
 # subpaths - specific directories for hdf5, pout, extraction data
 # (these are created at runtime)
@@ -40,13 +40,21 @@ integrals_filename = "Integrals"
 # Initial Data parameters
 
 # Proca field Initial data
-proca_mass = 0.5
+proca_mass = 0.1
 proca_damping = 1.0
 proca_amplitude = 0.1
 
+# choose the proca initial data profile
+# currently options are:
+#           'uniform-x': sets Avec[0] = proca_amplitude. proca_amplitude can be negative to flip direction
+#           'uniform-y': sets Avec[1] = proca_amplitude
+#           'uniform-z': sets Avec[2] = proca_amplitude
+# NOTE: If using anything other than uniform-x, must set boundary conditions appropriately!
+proca_initial_data_profile = "uniform-y"
+
 # Boosted BH initial data, boost in x direction
 bh_mass = 1.0
-bh_velocity = 0.3 # in unit of c (i.e. 0<v<1)
+bh_velocity = 0.4 # in unit of c (i.e. 0<v<1)
 
 ################################################
 # Diagnostic extraction parameters
@@ -58,15 +66,15 @@ activate_extraction = 1
 # Set to match inner and outer radii above
 num_extraction_radii = 2
 extraction_levels = 0 0
-extraction_radii = 3.0 200.0
+extraction_radii = 2.0 128.0
 
 num_points_phi = 36
 num_points_theta = 24
 
 # For volume integrals
 # By default these are set to the values of the extraction radii above
-# inner_r = 3.0
-# outer_r = 200.0
+inner_r = 1.0
+outer_r = 200.0
 
 #################################################
 # Grid parameters
@@ -78,21 +86,21 @@ num_points_theta = 24
 # NB - if you have a non-cubic grid, you can specify 'N1' or 'N1_full',
 # 'N2' or 'N2_full' and 'N3' or 'N3_full' ( then dx_coarsest = L/N(max) )
 # NB - the N values need to be multiples of the block_factor
-N1 = 128
-N2 = 128
-N3 = 64
+N1 = 256
+N2 = 256
+N3 = 128
 
-L_full = 1024
+L_full = 512
 
 # Maximum number of times you can regrid above coarsest level
-max_level = 6 # There are (max_level+1) grids, so min is zero
+max_level = 5 # There are (max_level+1) grids, so min is zero
 
 # Frequency of regridding at each level and thresholds on the tagging
 # Need one for each level except the top one, ie max_level items
 # Generally you do not need to regrid frequently on every level
 # in this example turn off regridding on all levels
 # Level Regridding: 0   1   2   3   4   5
-regrid_interval   = 0   0   0   0   0   0
+regrid_interval   = 0   0   0   0  0
 # regrid_threshold  = 0.5
 
 # Max and min box sizes
@@ -114,8 +122,9 @@ isPeriodic = 0 0 0
 # 0 = static, 1 = sommerfeld, 2 = reflective
 # 3 = extrapolating, 4 = mixed
 # (see BoundaryConditions.hpp for details)
+
 hi_boundary = 3 3 3
-lo_boundary = 3 3 2
+lo_boundary = 3 3 2 
 
 # if reflective boundaries selected, must set
 # parity of all vars (in order given by UserVariables.hpp)
@@ -148,8 +157,8 @@ extrapolation_order = 0
 # Evolution parameters
 
 # dt will be dx*dt_multiplier on each grid level
-dt_multiplier = 0.1
-stop_time = 250.0
+dt_multiplier = 0.2
+stop_time = 10000.0
 # max_steps = 4
 
 nan_check = 1
