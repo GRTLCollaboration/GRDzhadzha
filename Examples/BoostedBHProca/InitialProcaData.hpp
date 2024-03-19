@@ -49,6 +49,9 @@ class InitialProcaData
     //! Function to compute the value of all the initial vars on the grid
     template <class data_t> void compute(Cell<data_t> current_cell) const
     {
+        /*
+        We choose Avec0 = 0 and set Evec=0 to satisfy gauss constraint
+        */
         // where am i?
         Coordinates<data_t> coords(current_cell, m_dx, m_center);
 
@@ -77,17 +80,6 @@ class InitialProcaData
         else if (m_proca_initial_data_profile == "uniform-z")
         {
             vars.Avec[2] = m_amplitude;
-        }
-
-        // set electric field values consistent with equations of motion
-        FOR1(i)
-        {
-            vars.Evec[i] = 0.0;
-            FOR3(j, k, l)
-            {
-                vars.Evec[i] += gamma_UU[i][k] * gamma_UU[j][l] * vars.Avec[j] *
-                                metric_vars.K_tensor[k][l];
-            }
         }
 
         // Store the initial values of the variables
