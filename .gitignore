@@ -25,5 +25,6 @@ time.table.*
 *.log
 ipo_out.optrpt
 .code-workspace
+.vscode
 
 Doxygen/html

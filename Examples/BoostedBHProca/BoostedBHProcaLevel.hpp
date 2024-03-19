@@ -23,7 +23,7 @@ class BoostedBHProcaLevel : public GRAMRLevel
     using GRAMRLevel::GRAMRLevel;
 
     // Typedef for proca field
-    typedef ProcaField ProcaField;
+    //typedef ProcaField ProcaField; //redundant?
 
     //! Initialize data for the field and metric variables
     virtual void initialData();

@@ -7,7 +7,7 @@
 verbosity = 0
 
 # location / naming of output files
-output_path = "/pfs/work7/workspace/scratch/hd_pb293-WS_GRChombo/testing/Proca_DynamicalFriction_mu_01_v_04_23242757"
+output_path = "/pfs/work7/workspace/scratch/hd_pb293-WS_GRChombo/testing/GRDzhadzha_proca_dynfric_23266559"
 chk_prefix = "BoostedBHProca_"
 plot_prefix = "BoostedBHProcap_"
 # restart_file = BoostedBHProca_000000.3d.hdf5
@@ -17,8 +17,8 @@ checkpoint_interval = 100
 # set to 0 to turn off plot files (except at t=0 and t=stop_time)
 # set to -1 to never ever print plotfiles
 plot_interval = 1
-num_plot_vars = 6
-plot_vars = chi rhoEnergy fluxEnergy rhoLinMom fluxLinMom sourceLinMom
+num_plot_vars = 7
+plot_vars = chi rhoEnergy fluxEnergy rhoLinMom fluxLinMom sourceLinMom Zvec
 
 # subpaths - specific directories for hdf5, pout, extraction data
 # (these are created at runtime)
@@ -41,7 +41,7 @@ integrals_filename = "Integrals"
 
 # Proca field Initial data
 proca_mass = 0.1
-proca_damping = 1.0
+proca_damping = 2
 proca_amplitude = 0.1
 
 # choose the proca initial data profile
@@ -138,6 +138,7 @@ vars_parity            = 0 1 2 3    #Avec
 			 
 vars_parity_diagnostic = 0 0 0     #chi, rhoLinMom and rhoEnergy
 		         0 0 0     #fluxLinMom, fluxEnergy and sourceLinMom
+                0 #zvec
 			 
 # if sommerfeld boundaries selected, must select
 # non zero asymptotic values

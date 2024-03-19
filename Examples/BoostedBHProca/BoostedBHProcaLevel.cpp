@@ -29,6 +29,9 @@
 #include "ProcaConstraint.hpp"
 #include "ProcaField.hpp"
 
+//Diagnostics
+#include "ProcaDiagnostic.hpp"
+
 // Initial data for field and metric variables
 void BoostedBHProcaLevel::initialData()
 {
@@ -56,7 +59,7 @@ void BoostedBHProcaLevel::initialData()
         FILL_GHOST_CELLS); // Loop over box cells, filling the ghost cells
 
     // now the gauss constraint
-    fillAllGhosts(); // Is this necessary here?
+    fillAllGhosts(); 
     ProcaConstraint enforce_constraint(
         m_p.center, m_p.bg_params, m_p.proca_mass,
         m_dx); // This sets the scalar part of the Proca field, using the gauss
@@ -87,13 +90,16 @@ void BoostedBHProcaLevel::specificPostTimeStep()
     {
         fillAllGhosts();
         ProcaField proca_field(m_p.proca_mass, m_p.proca_damping);
+        ProcaGaussDiagnostic gauss_constraint{};
         BoostedBH boosted_bh(m_p.bg_params, m_dx);
         EnergyConservation<ProcaField, BoostedBH> energies(
             proca_field, boosted_bh, m_dx, m_p.center);
         int direction = 0; // we want the x direction for the momentum
         LinearMomConservation<ProcaField, BoostedBH> linear_momenta(
             proca_field, boosted_bh, direction, m_dx, m_p.center);
-        BoxLoops::loop(make_compute_pack(energies, linear_momenta), m_state_new,
+
+        auto compute_pack = make_compute_pack(energies, linear_momenta, gauss_constraint);
+        BoxLoops::loop(compute_pack, m_state_new,
                        m_state_diagnostics, SKIP_GHOST_CELLS);
 
         // excise within/outside specified radii, no simd
