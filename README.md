@@ -1,7 +1,6 @@
 # GRDzhadzha
 
-[![status](https://joss.theoj.org/papers/af52e7f1b7637bfa68818fde7c1a34de/status.svg)](https://joss.theoj.org/papers/af52e7f1b7637bfa68818fde7c1a34de)
-[![DOI](https://zenodo.org/badge/118786602.svg)](https://zenodo.org/badge/latestdoi/118786602)
+[![DOI](https://zenodo.org/badge/524111965.svg)](https://zenodo.org/doi/10.5281/zenodo.10839755)
 
 GRDzhadzha is an open-source code for general relativity simulations 
 of matter fields on a fixed black hole background, based on the publicly available 
@@ -27,7 +26,7 @@ for our coding style and testing policy before filing a pull request.
 GRDzhadzha is licensed under the BSD 3-Clause License. Please see LICENSE for details.
 
 ## Citation
-If you use GRDzhadzha as part of a paper, please cite our paper which has been sumitted for review in the Journal of Open Source Software:
+If you use GRDzhadzha as part of a paper, please cite our paper which has been submitted for review in the Journal of Open Source Software:
 
 ```
 @article{Aurrekoetxea:2023fhl,
