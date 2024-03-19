@@ -7,7 +7,7 @@
 verbosity = 0
 
 # location / naming of output files
-output_path = "/pfs/work7/workspace/scratch/hd_pb293-WS_GRChombo/testing/GRDzhadzha_proca_dynfric_23266559"
+output_path = "/pfs/work7/workspace/scratch/hd_pb293-WS_GRChombo/testing/GRDzhadzha_proca_dynfric_k20_23266570"
 chk_prefix = "BoostedBHProca_"
 plot_prefix = "BoostedBHProcap_"
 # restart_file = BoostedBHProca_000000.3d.hdf5

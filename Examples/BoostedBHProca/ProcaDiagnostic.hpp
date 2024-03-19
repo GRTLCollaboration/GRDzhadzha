@@ -11,29 +11,27 @@
 #include "VarsTools.hpp"
 #include "simd.hpp"
 
-
-
 class ProcaGaussDiagnostic
 {
-    protected:
-        
-        template <class data_t>
-        using MatterVars = ProcaField::Vars<data_t>; //type alias the matter variables
+  protected:
+    template <class data_t>
+    using MatterVars =
+        ProcaField::Vars<data_t>; // type alias the matter variables
 
-    public:
-        ProcaGaussDiagnostic(){}; //explicit default constructor
+  public:
+    ProcaGaussDiagnostic(){}; // explicit default constructor
 
-        template <class data_t>
-        void compute(Cell<data_t> current_cell) const
-        {
-            //Load the auxiliary Z field and save it to diagnostic variable c_Zvec_out.
-            //The auxiliary Z field is equal to minus the Gauss constraint.
-            //so instead of calculating the Gauss constraint directly, we just have to load the Z field
+    template <class data_t> void compute(Cell<data_t> current_cell) const
+    {
+        // Load the auxiliary Z field and save it to diagnostic variable
+        // c_Zvec_out. The auxiliary Z field is equal to minus the Gauss
+        // constraint. so instead of calculating the Gauss constraint directly,
+        // we just have to load the Z field
 
-            MatterVars<data_t> matter_vars { current_cell.template load_vars<MatterVars>() }; //load the matter variables from the Chombo grid
-            current_cell.store_vars(matter_vars.Zvec, c_Zvec_out);
-
-        };
+        MatterVars<data_t> matter_vars{current_cell.template load_vars<
+            MatterVars>()}; // load the matter variables from the Chombo grid
+        current_cell.store_vars(matter_vars.Zvec, c_Zvec_out);
+    };
 };
 
 #endif /* PROCAGAUSSDIAGNOSTIC_HPP_INCLUDED */

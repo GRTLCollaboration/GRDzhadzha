@@ -44,13 +44,14 @@ template <class matter_t, class background_t> class ExcisionDiagnostics
             current_cell.store_vars(0.0, c_rhoEnergy);
             current_cell.store_vars(0.0, c_sourceLinMom); */
 
-            //We do a little bit fancier diagnostic excision here, using the fact that enum's are just integers
-            //This approach automatically takes into account any changes to the number of diagnostic variables in DiagnosticVariables.hpp
-            for (int i{0}; i<NUM_DIAGNOSTIC_VARS; i++)
+            // We do a little bit fancier diagnostic excision here, using the
+            // fact that enum's are just integers This approach automatically
+            // takes into account any changes to the number of diagnostic
+            // variables in DiagnosticVariables.hpp
+            for (int i{0}; i < NUM_DIAGNOSTIC_VARS; i++)
             {
-              current_cell.store_vars(0.0, i);
+                current_cell.store_vars(0.0, i);
             };
-
         }
     }
 };

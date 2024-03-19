@@ -47,14 +47,15 @@ template <class matter_t, class background_t> class ExcisionProcaEvolution
             // assign values of rhs or vars in output box
             current_cell.store_vars(vars);
         } // else do nothing
-       
-        //calculate outer horizon size
-        double bh_mass = m_background.m_params.mass;
-        double r_plus =0.5 * bh_mass;
 
-        //Excise auxiliary Z field directly at horizon, since it can drive errors
+        // calculate outer horizon size
+        double bh_mass = m_background.m_params.mass;
+        double r_plus = 0.5 * bh_mass;
+
+        // Excise auxiliary Z field directly at horizon, since it can drive
+        // errors
         if (coords.get_radius() < r_plus)
-        { 
+        {
             current_cell.store_vars(0.0, c_Zvec);
         }
     }
