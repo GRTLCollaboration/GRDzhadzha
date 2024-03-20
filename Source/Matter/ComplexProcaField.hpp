@@ -6,7 +6,7 @@
 #ifndef COMPLEXPROCAFIELD_HPP_
 #define COMPLEXPROCAFIELD_HPP_
 
-#include "CCZ4Geometry.hpp"
+#include "ADMFixedBGVars.hpp"
 #include "FourthOrderDerivatives.hpp"
 #include "Tensor.hpp"
 #include "TensorAlgebra.hpp"
