@@ -27,22 +27,30 @@ class SimulationParameters : public FixedBGSimulationParametersBase
     void read_params(GRParmParse &pp)
     {
         // Initial PF
-        pp.load("proca_mass", proca_mass);
-        pp.load("proca_amplitude", proca_amplitude);
-        pp.load("proca_damping", proca_damping);
-        pp.load("proca_initial_data_profile", proca_initial_data_profile, std::string("uniform-x"));
+        pp.load("proca_mass", proca_mass); // Mass of the Proca field
+        pp.load("proca_amplitude",
+                proca_amplitude); // initial amplitude of the Proca field
+        pp.load("proca_damping",
+                proca_damping); // value of the constraint damping coefficient
+        pp.load("proca_initial_data_profile", proca_initial_data_profile,
+                std::string("uniform-x")); // Initial data profile selector
 
         // BH data
-        pp.load("bh_mass", bg_params.mass, 1.0);
-        pp.load("bh_velocity", bg_params.velocity, 0.0);
-        pp.load("bh_center", bg_params.center, center);
+        pp.load("bh_mass", bg_params.mass, 1.0);         // mass of BH
+        pp.load("bh_velocity", bg_params.velocity, 0.0); // velocity of BH
+        pp.load("bh_center", bg_params.center, center);  // center of BH
 
         // Volume extraction radii
-        pp.load("inner_r", inner_r, extraction_params.extraction_radii[0]);
-        pp.load("outer_r", outer_r, extraction_params.extraction_radii[1]);
+        pp.load("inner_r", inner_r,
+                extraction_params
+                    .extraction_radii[0]); // radius of inner extraction sphere
+        pp.load("outer_r", outer_r,
+                extraction_params
+                    .extraction_radii[1]); // radius of outer extraction sphere
 
-        //Extraction filename
-        pp.load("integrals_filename", integrals_filename, (std::string)"Integrals"); //type cast char[] to std::string
+        // Extraction filename
+        pp.load("integrals_filename", integrals_filename,
+                (std::string) "Integrals"); // type cast char[] to std::string
     }
 
     void check_params()
@@ -78,7 +86,7 @@ class SimulationParameters : public FixedBGSimulationParametersBase
     // Collection of parameters necessary for the metric background
     BoostedBH::params_t bg_params;
 
-    //Integrals filename
+    // Integrals filename
     std::string integrals_filename;
 
     std::string proca_initial_data_profile;
