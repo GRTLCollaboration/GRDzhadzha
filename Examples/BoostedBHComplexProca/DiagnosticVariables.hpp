@@ -16,7 +16,7 @@ enum
     c_fluxLinMom,
     c_sourceLinMom,
     c_Zvec_Re_out, // Auxiliary Z field. Used for tracking (minus) the Gauss
-                // constraint
+                   // constraint
     c_Zvec_Im_out,
 
     NUM_DIAGNOSTIC_VARS

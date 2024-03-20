@@ -9,8 +9,8 @@
 #include "ADMFixedBGVars.hpp"
 #include "BoostedBH.hpp"
 #include "Cell.hpp"
-#include "Coordinates.hpp"
 #include "ComplexProcaField.hpp"
+#include "Coordinates.hpp"
 #include "Tensor.hpp"
 #include "UserVariables.hpp" //This files needs NUM_VARS - total no. components
 #include "VarsTools.hpp"
@@ -72,11 +72,10 @@ class ProcaConstraint
             Avec0_Re += -d1.Evec_Re[i][i];
             Avec0_Im += -d1.Evec_Im[i][i];
 
-            FOR1(j) 
-            { 
-              Avec0_Re += -chris_phys.ULL[i][i][j] * vars.Evec_Re[j]; 
-              Avec0_Im += -chris_phys.ULL[i][i][j] * vars.Evec_Im[j];
-            
+            FOR1(j)
+            {
+                Avec0_Re += -chris_phys.ULL[i][i][j] * vars.Evec_Re[j];
+                Avec0_Im += -chris_phys.ULL[i][i][j] * vars.Evec_Im[j];
             }
         }
         Avec0_Re = Avec0_Re / m_mu / m_mu;

@@ -4,8 +4,8 @@
 #include "ADMFixedBGVars.hpp"
 #include "BoostedBH.hpp"
 #include "Cell.hpp"
-#include "Coordinates.hpp"
 #include "ComplexProcaField.hpp"
+#include "Coordinates.hpp"
 #include "Tensor.hpp"
 #include "UserVariables.hpp" //This files needs NUM_VARS - total no. components
 #include "VarsTools.hpp"

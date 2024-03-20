@@ -47,7 +47,7 @@ static const std::array<std::string, NUM_VARS> variable_names = {
 
     "Evec1_Re", "Evec1_Im", "Evec2_Re", "Evec2_Im", "Evec3_Re", "Evec3_Im",
 
-    "Zvec_Re", "Zvec_Im"};
+    "Zvec_Re",  "Zvec_Im"};
 
 } // namespace UserVariables
 

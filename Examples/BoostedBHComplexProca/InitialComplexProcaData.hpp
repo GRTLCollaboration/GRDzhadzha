@@ -9,8 +9,8 @@
 #include "ADMFixedBGVars.hpp"
 #include "BoostedBH.hpp"
 #include "Cell.hpp"
-#include "Coordinates.hpp"
 #include "ComplexProcaField.hpp"
+#include "Coordinates.hpp"
 #include "Tensor.hpp"
 #include "TensorAlgebra.hpp"
 #include "UserVariables.hpp" //This files needs NUM_VARS - total no. components
@@ -37,13 +37,12 @@ class InitialProcaData
   public:
     //! The constructor for the class
     InitialProcaData(
-        const double a_amplitude,
-        const double a_mass,
+        const double a_amplitude, const double a_mass,
         const std::array<double, CH_SPACEDIM> a_center,
         const BoostedBH::params_t a_bg_params, const double a_dx,
         const std::string a_proca_initial_data_profile = "uniform-x")
-        : m_dx(a_dx), m_amplitude(a_amplitude), m_mass{a_mass}, m_center(a_center),
-          m_bg_params(a_bg_params),
+        : m_dx(a_dx), m_amplitude(a_amplitude), m_mass{a_mass},
+          m_center(a_center), m_bg_params(a_bg_params),
           m_proca_initial_data_profile(a_proca_initial_data_profile)
     {
     }
@@ -84,15 +83,16 @@ class InitialProcaData
             vars.Avec_Re[2] = m_amplitude;
         }
 
-        //Since Evec is minus the conjugate momentum to Avec, we set E = - dAvec/dt
-        // Assuming Avec is a phasor, i.e. Avec[i] ~ e^(-i*w*t)
+        // Since Evec is minus the conjugate momentum to Avec, we set E = -
+        // dAvec/dt
+        //  Assuming Avec is a phasor, i.e. Avec[i] ~ e^(-i*w*t)
         FOR1(i)
         {
             vars.Evec_Im[i] = 0;
-            
+
             FOR1(j)
             {
-                vars.Evec_Im[i] += - gamma_UU[i][j] * m_mass * vars.Avec_Re[j];
+                vars.Evec_Im[i] += -gamma_UU[i][j] * m_mass * vars.Avec_Re[j];
             }
         }
 

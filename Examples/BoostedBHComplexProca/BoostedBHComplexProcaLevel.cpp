@@ -20,14 +20,14 @@
 #include "FixedGridsTaggingCriterion.hpp"
 
 // Problem specific includes
+#include "ComplexProcaField.hpp"
 #include "EnergyConservation.hpp"
-#include "ExcisionDiagnostics.hpp"
 #include "ExcisionComplexProcaEvolution.hpp"
+#include "ExcisionDiagnostics.hpp"
 #include "FluxExtraction.hpp"
 #include "InitialComplexProcaData.hpp"
 #include "LinearMomConservation.hpp"
 #include "ProcaConstraint.hpp"
-#include "ComplexProcaField.hpp"
 
 // Diagnostics
 #include "ProcaDiagnostic.hpp"
@@ -155,8 +155,8 @@ void BoostedBHComplexProcaLevel::specificPostTimeStep()
 
 // Things to do in RHS update, at each RK4 step
 void BoostedBHComplexProcaLevel::specificEvalRHS(GRLevelData &a_soln,
-                                          GRLevelData &a_rhs,
-                                          const double a_time)
+                                                 GRLevelData &a_rhs,
+                                                 const double a_time)
 {
     // Calculate right hand side with matter_t = ComplexProcaField
     // and background_t = BoostedBH

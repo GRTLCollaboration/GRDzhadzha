@@ -27,8 +27,8 @@ int runGRChombo(int argc, char *argv[])
     // (To simulate a different problem, define a new child of AMRLevel
     // and an associated LevelFactory)
     GRAMR gr_amr;
-    DefaultLevelFactory<BoostedBHComplexProcaLevel> proca_field_level_fact(gr_amr,
-                                                                    sim_params);
+    DefaultLevelFactory<BoostedBHComplexProcaLevel> proca_field_level_fact(
+        gr_amr, sim_params);
     setupAMRObject(gr_amr, proca_field_level_fact);
 
     // call this after amr object setup so grids known

@@ -78,7 +78,8 @@ class SimulationParameters : public FixedBGSimulationParametersBase
         }
     }
 
-    // Problem specific parameters - the radii for the integrations (Should always equal the radii of extraction)
+    // Problem specific parameters - the radii for the integrations (Should
+    // always equal the radii of extraction)
     double inner_r, outer_r;
     double proca_mass, proca_damping, proca_amplitude;
     // Collection of parameters necessary for the initial conditions
