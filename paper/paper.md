@@ -111,7 +111,7 @@ So far the code has been used to study a range of fundamental physics problems:
   
 - Superradiance with self-interacting vector field [@Clough:2022ygm] and with spatially varying mass [@Wang:2022hra]
   
-- BH mergers in wave dark matter environments [@Bamber:2022pbs,@Aurrekoetxea:2023jwk]
+- BH mergers in wave dark matter environments [@Bamber:2022pbs;@Aurrekoetxea:2023jwk]
 
 
 # Acknowledgements
