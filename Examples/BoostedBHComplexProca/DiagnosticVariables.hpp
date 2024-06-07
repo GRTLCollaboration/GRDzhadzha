@@ -18,6 +18,7 @@ enum
     c_Zvec_Re_out, // Auxiliary Z field. Used for tracking (minus) the Gauss
                    // constraint
     c_Zvec_Im_out,
+    c_Asquared,
 
     NUM_DIAGNOSTIC_VARS
 };
@@ -26,7 +27,7 @@ namespace DiagnosticVariables
 {
 static const std::array<std::string, NUM_DIAGNOSTIC_VARS> variable_names = {
     "chi",        "rhoEnergy",    "fluxEnergy", "rhoLinMom",
-    "fluxLinMom", "sourceLinMom", "Zvec"};
+    "fluxLinMom", "sourceLinMom", "Zvec_Re", "Zvec_Im", "Asquared"};
 }
 
 #endif /* DIAGNOSTICVARIABLES_HPP */

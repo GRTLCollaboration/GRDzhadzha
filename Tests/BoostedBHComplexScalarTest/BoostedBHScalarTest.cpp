@@ -40,8 +40,8 @@ int main()
 #endif
 
     int failed = 0;
-    const bool debug_plots_on = false; // true;
-    const int num_resolutions = 0;
+    const bool debug_plots_on = true; // true;
+    const int num_resolutions = 2;
 
     // setup a vector of norms for checking convergence
     std::array<std::array<double, NUM_VARS>, num_resolutions> error_norms;
@@ -152,9 +152,11 @@ int main()
                     double z = dx * (iv[2] + 0.5);
                     double out1 = fixedbg_fab(iv, c_lapse);
                     double out2 = fixedbg_fab(iv, c_shift1);
+                    double out3 = fixedbg_fab(iv, c_K);
+                    double out4 = rhs_fab(iv, c_K);
 
                     outfile << std::setw(20) << x << std::setw(20) << z;
-                    outfile << std::setw(20) << out1 << std::setw(20) << out2;
+                    outfile << std::setw(20) << out1 << std::setw(20) << out2 << std::setw(20) << out3 << std::setw(20) << out4;
                     outfile << "\n";
                 }
             }

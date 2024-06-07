@@ -21,15 +21,16 @@ template <class matter_t, class background_t> class ExcisionProcaEvolution
 
   protected:
     const double m_dx;                              //!< The grid spacing
+    const double m_z_exc_rad_mult; //!< Multiplier for radius of z excision.
     const std::array<double, CH_SPACEDIM> m_center; //!< The BH center
     const FourthOrderDerivatives m_deriv;
     const background_t m_background;
 
   public:
-    ExcisionProcaEvolution(const double a_dx,
+    ExcisionProcaEvolution(const double a_dx, const double a_z_exc_rad_mult,
                            const std::array<double, CH_SPACEDIM> a_center,
                            background_t a_background)
-        : m_dx(a_dx), m_deriv(m_dx), m_center(a_center),
+        : m_dx(a_dx), m_z_exc_rad_mult(a_z_exc_rad_mult), m_deriv(m_dx), m_center(a_center),
           m_background(a_background)
     {
     }
@@ -49,12 +50,19 @@ template <class matter_t, class background_t> class ExcisionProcaEvolution
         } // else do nothing
 
         // calculate outer horizon size
-        double bh_mass = m_background.m_params.mass;
+        const double bh_mass = m_background.m_params.mass;
+        const double bh_vel = m_background.m_params.velocity;
+        const double boost = pow(1.0 - bh_vel * bh_vel, -0.5);
+
         double r_plus = 0.5 * bh_mass;
+        double x = coords.x;
+        double y = coords.y;
+        double z = coords.z;
+        double radius = sqrt( x * x * boost * boost + y * y + z * z ); //boosted coordinate radius
 
         // Excise auxiliary Z field directly at horizon, since it can drive
         // errors
-        if (coords.get_radius() < r_plus)
+        if ( radius < m_z_exc_rad_mult * r_plus )
         {
             current_cell.store_vars(0.0, c_Zvec_Re);
             current_cell.store_vars(0.0, c_Zvec_Im);

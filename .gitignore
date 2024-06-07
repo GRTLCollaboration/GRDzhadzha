@@ -26,5 +26,6 @@ time.table.*
 ipo_out.optrpt
 *.code-workspace
 .vscode
+.params
 
 Doxygen/html

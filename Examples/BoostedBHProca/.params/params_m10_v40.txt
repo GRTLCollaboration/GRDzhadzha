@@ -1,6 +1,8 @@
 # See the wiki page for an explanation of the params!
 # https://github.com/GRChombo/GRChombo/wiki/Guide-to-parameters
 
+".params/params_m10_v40.txt"
+
 #################################################
 # Filesystem parameters
 

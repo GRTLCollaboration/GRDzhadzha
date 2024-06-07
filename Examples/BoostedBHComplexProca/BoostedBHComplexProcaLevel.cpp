@@ -31,6 +31,7 @@
 
 // Diagnostics
 #include "ProcaDiagnostic.hpp"
+#include "Asquared.hpp"
 
 // Initial data for field and metric variables
 void BoostedBHComplexProcaLevel::initialData()
@@ -70,7 +71,7 @@ void BoostedBHComplexProcaLevel::initialData()
 
     // excise evolution vars within horizon, turn off simd vectorisation
     BoxLoops::loop(ExcisionProcaEvolution<ComplexProcaField, BoostedBH>(
-                       m_dx, m_p.center, boosted_bh),
+                       m_dx, 1.0, m_p.center, boosted_bh),
                    m_state_new, m_state_new, SKIP_GHOST_CELLS,
                    disable_simd()); // Now excise the evolution variables inside
                                     // the horizon
@@ -97,9 +98,10 @@ void BoostedBHComplexProcaLevel::specificPostTimeStep()
         int direction = 0; // we want the x direction for the momentum
         LinearMomConservation<ComplexProcaField, BoostedBH> linear_momenta(
             proca_field, boosted_bh, direction, m_dx, m_p.center);
+        ProcaSquared<BoostedBH> Asquared(m_dx, m_p.center, boosted_bh);
 
         auto compute_pack =
-            make_compute_pack(energies, linear_momenta, gauss_constraint);
+            make_compute_pack(energies, linear_momenta, gauss_constraint,Asquared, boosted_bh);
         BoxLoops::loop(compute_pack, m_state_new, m_state_diagnostics,
                        SKIP_GHOST_CELLS);
 
@@ -168,7 +170,7 @@ void BoostedBHComplexProcaLevel::specificEvalRHS(GRLevelData &a_soln,
 
     // Do excision within horizon, don't use vectorisation
     BoxLoops::loop(ExcisionProcaEvolution<ComplexProcaField, BoostedBH>(
-                       m_dx, m_p.center, boosted_bh),
+                       m_dx, m_p.z_exc_mult, m_p.center, boosted_bh),
                    a_soln, a_rhs, SKIP_GHOST_CELLS, disable_simd());
 }
 

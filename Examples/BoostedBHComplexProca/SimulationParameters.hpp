@@ -51,6 +51,8 @@ class SimulationParameters : public FixedBGSimulationParametersBase
         // Extraction filename
         pp.load("integrals_filename", integrals_filename,
                 (std::string) "Integrals"); // type cast char[] to std::string
+
+        pp.load("z_exc_mult", z_exc_mult, 1.0);
     }
 
     void check_params()
@@ -81,6 +83,7 @@ class SimulationParameters : public FixedBGSimulationParametersBase
     // Problem specific parameters - the radii for the integrations (Should
     // always equal the radii of extraction)
     double inner_r, outer_r;
+    double z_exc_mult; // Multiplier for the z excision radius
     double proca_mass, proca_damping, proca_amplitude;
     // Collection of parameters necessary for the initial conditions
     // InitialProcaData::params_t initial_params;
@@ -91,6 +94,7 @@ class SimulationParameters : public FixedBGSimulationParametersBase
     std::string integrals_filename;
 
     std::string proca_initial_data_profile;
+    
 };
 
 #endif /* SIMULATIONPARAMETERS_HPP_ */

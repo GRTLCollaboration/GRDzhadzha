@@ -81,6 +81,7 @@ void MatterCCZ4RHS<matter_t, gauge_t, deriv_t>::add_emtensor_rhs(
             -8.0 * M_PI * m_G_Newton * matter_vars.lapse * emtensor.rho;
     }
 
+
     // Update RHS for other variables
     Tensor<2, data_t> Sij_TF = emtensor.Sij;
     make_trace_free(Sij_TF, matter_vars.h, h_UU);
