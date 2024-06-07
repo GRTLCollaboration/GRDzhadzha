@@ -207,7 +207,8 @@ class BoostedBH
   public:
     // used to decide when to excise - ie when within the horizon of the BH
     // note that this is not templated over data_t
-    bool check_if_excised(const Coordinates<double> &coords, double buffer = 0.5) const
+    bool check_if_excised(const Coordinates<double> &coords,
+                          double buffer = 0.5) const
     {
         // black hole params - mass M and boost v
         // "boost" is the gamma factor for the boost

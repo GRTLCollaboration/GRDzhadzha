@@ -1,7 +1,6 @@
 #ifndef ASQUARED_HPP_
 #define ASQUARED_HPP_
 
-
 #include "ADMFixedBGVars.hpp"
 #include "BoostedBH.hpp"
 #include "Cell.hpp"
@@ -11,8 +10,6 @@
 #include "UserVariables.hpp" //This files needs NUM_VARS - total no. components
 #include "VarsTools.hpp"
 #include "simd.hpp"
-
-
 
 template <class background_t> class ProcaSquared
 {
@@ -25,7 +22,8 @@ template <class background_t> class ProcaSquared
     // Use the variable definition in ADMVars
     template <class data_t> using MetricVars = ADMFixedBGVars::Vars<data_t>;
 
-    template <class data_t> using MatterVars = ComplexProcaField::template Vars<data_t>;
+    template <class data_t>
+    using MatterVars = ComplexProcaField::template Vars<data_t>;
 
   public:
     ProcaSquared(double a_dx, const std::array<double, CH_SPACEDIM> a_center,
@@ -54,23 +52,22 @@ template <class background_t> class ProcaSquared
         Asquared_re = -matter_vars.Avec0_Re * matter_vars.Avec0_Re;
         FOR2(i, j)
         {
-            Asquared_re +=
-                gamma_UU[i][j] * matter_vars.Avec_Re[i] * matter_vars.Avec_Re[j];
+            Asquared_re += gamma_UU[i][j] * matter_vars.Avec_Re[i] *
+                           matter_vars.Avec_Re[j];
         };
 
         data_t Asquared_im;
         Asquared_im = -matter_vars.Avec0_Im * matter_vars.Avec0_Im;
         FOR2(i, j)
         {
-            Asquared_im +=
-                gamma_UU[i][j] * matter_vars.Avec_Im[i] * matter_vars.Avec_Im[j];
+            Asquared_im += gamma_UU[i][j] * matter_vars.Avec_Im[i] *
+                           matter_vars.Avec_Im[j];
         };
-        
+
         data_t Asquared = Asquared_re + Asquared_im;
 
         current_cell.store_vars(Asquared, c_Asquared);
     };
 };
-
 
 #endif /* ASQUARED_HPP_ */

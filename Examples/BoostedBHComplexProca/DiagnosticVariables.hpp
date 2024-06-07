@@ -26,8 +26,8 @@ enum
 namespace DiagnosticVariables
 {
 static const std::array<std::string, NUM_DIAGNOSTIC_VARS> variable_names = {
-    "chi",        "rhoEnergy",    "fluxEnergy", "rhoLinMom",
-    "fluxLinMom", "sourceLinMom", "Zvec_Re", "Zvec_Im", "Asquared"};
+    "chi",          "rhoEnergy", "fluxEnergy", "rhoLinMom", "fluxLinMom",
+    "sourceLinMom", "Zvec_Re",   "Zvec_Im",    "Asquared"};
 }
 
 #endif /* DIAGNOSTICVARIABLES_HPP */

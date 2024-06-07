@@ -20,7 +20,7 @@ template <class matter_t, class background_t> class ExcisionProcaEvolution
     using Vars = typename matter_t::template Vars<double>;
 
   protected:
-    const double m_dx;                              //!< The grid spacing
+    const double m_dx;             //!< The grid spacing
     const double m_z_exc_rad_mult; //!< Multiplier for radius of z excision.
     const std::array<double, CH_SPACEDIM> m_center; //!< The BH center
     const FourthOrderDerivatives m_deriv;
@@ -30,8 +30,8 @@ template <class matter_t, class background_t> class ExcisionProcaEvolution
     ExcisionProcaEvolution(const double a_dx, const double a_z_exc_rad_mult,
                            const std::array<double, CH_SPACEDIM> a_center,
                            background_t a_background)
-        : m_dx(a_dx), m_z_exc_rad_mult(a_z_exc_rad_mult), m_deriv(m_dx), m_center(a_center),
-          m_background(a_background)
+        : m_dx(a_dx), m_z_exc_rad_mult(a_z_exc_rad_mult), m_deriv(m_dx),
+          m_center(a_center), m_background(a_background)
     {
     }
 
@@ -58,11 +58,12 @@ template <class matter_t, class background_t> class ExcisionProcaEvolution
         double x = coords.x;
         double y = coords.y;
         double z = coords.z;
-        double radius = sqrt( x * x * boost * boost + y * y + z * z ); //boosted coordinate radius
+        double radius = sqrt(x * x * boost * boost + y * y +
+                             z * z); // boosted coordinate radius
 
         // Excise auxiliary Z field directly at horizon, since it can drive
         // errors
-        if ( radius < m_z_exc_rad_mult * r_plus )
+        if (radius < m_z_exc_rad_mult * r_plus)
         {
             current_cell.store_vars(0.0, c_Zvec_Re);
             current_cell.store_vars(0.0, c_Zvec_Im);

@@ -42,7 +42,7 @@ template <class matter_t, class background_t> class ExcisionDiagnostics
         {
             current_cell.store_vars(0.0, c_rhoLinMom);
             current_cell.store_vars(0.0, c_rhoEnergy);
-            current_cell.store_vars(0.0, c_sourceLinMom); 
+            current_cell.store_vars(0.0, c_sourceLinMom);
         }
     }
 };

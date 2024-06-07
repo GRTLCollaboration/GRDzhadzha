@@ -156,7 +156,8 @@ int main()
                     double out4 = rhs_fab(iv, c_K);
 
                     outfile << std::setw(20) << x << std::setw(20) << z;
-                    outfile << std::setw(20) << out1 << std::setw(20) << out2 << std::setw(20) << out3 << std::setw(20) << out4;
+                    outfile << std::setw(20) << out1 << std::setw(20) << out2
+                            << std::setw(20) << out3 << std::setw(20) << out4;
                     outfile << "\n";
                 }
             }

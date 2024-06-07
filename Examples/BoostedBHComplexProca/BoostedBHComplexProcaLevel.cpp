@@ -30,8 +30,8 @@
 #include "ProcaConstraint.hpp"
 
 // Diagnostics
-#include "ProcaDiagnostic.hpp"
 #include "Asquared.hpp"
+#include "ProcaDiagnostic.hpp"
 
 // Initial data for field and metric variables
 void BoostedBHComplexProcaLevel::initialData()
@@ -100,8 +100,8 @@ void BoostedBHComplexProcaLevel::specificPostTimeStep()
             proca_field, boosted_bh, direction, m_dx, m_p.center);
         ProcaSquared<BoostedBH> Asquared(m_dx, m_p.center, boosted_bh);
 
-        auto compute_pack =
-            make_compute_pack(energies, linear_momenta, gauss_constraint,Asquared, boosted_bh);
+        auto compute_pack = make_compute_pack(
+            energies, linear_momenta, gauss_constraint, Asquared, boosted_bh);
         BoxLoops::loop(compute_pack, m_state_new, m_state_diagnostics,
                        SKIP_GHOST_CELLS);
 

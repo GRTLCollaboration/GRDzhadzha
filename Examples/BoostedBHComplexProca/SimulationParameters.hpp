@@ -94,7 +94,6 @@ class SimulationParameters : public FixedBGSimulationParametersBase
     std::string integrals_filename;
 
     std::string proca_initial_data_profile;
-    
 };
 
 #endif /* SIMULATIONPARAMETERS_HPP_ */
