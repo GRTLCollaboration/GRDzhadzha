@@ -95,9 +95,9 @@ void BoostedBHScalarLevel::specificPostTimeStep()
             bool first_step = (m_time == m_dt);
             // integrate the densities and write to a file
             AMRReductions<VariableType::diagnostic> amr_reductions(m_gr_amr);
-            double rhoEnergy_sum = amr_reductions.sum(c_rhoEnergy, m_p.symmetry_factor);
-            double rhoLinMom_sum = amr_reductions.sum(c_rhoLinMom, m_p.symmetry_factor);
-            double sourceLinMom_sum = amr_reductions.sum(c_sourceLinMom, m_p.symmetry_factor);
+            double rhoEnergy_sum = amr_reductions.sum(c_rhoEnergy);
+            double rhoLinMom_sum = amr_reductions.sum(c_rhoLinMom);
+            double sourceLinMom_sum = amr_reductions.sum(c_sourceLinMom);
 
             SmallDataIO integral_file(m_p.data_path + "EnergyIntegrals", m_dt,
                                       m_time, m_restart_time,

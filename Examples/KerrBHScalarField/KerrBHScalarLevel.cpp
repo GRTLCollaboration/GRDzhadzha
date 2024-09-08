@@ -109,8 +109,8 @@ void KerrBHScalarLevel::specificPostTimeStep()
             bool first_step = (m_time == m_dt);
             // integrate the densities and write to a file
             AMRReductions<VariableType::diagnostic> amr_reductions(m_gr_amr);
-            double rhoEnergy_sum = amr_reductions.sum(c_rhoEnergy, m_p.symmetry_factor);
-            double rhoAngMom_sum = amr_reductions.sum(c_rhoAngMom, m_p.symmetry_factor);
+            double rhoEnergy_sum = amr_reductions.sum(c_rhoEnergy);
+            double rhoAngMom_sum = amr_reductions.sum(c_rhoAngMom);
 
             SmallDataIO integral_file(m_p.data_path + "EnergyIntegrals", m_dt,
                                       m_time, m_restart_time,
