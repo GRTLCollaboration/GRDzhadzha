@@ -1,0 +1,59 @@
+/* GRChombo
+ * Copyright 2012 The GRChombo collaboration.
+ * Please refer to LICENSE in GRChombo's root directory.
+ */
+
+#ifndef SIMULATIONPARAMETERS_HPP_
+#define SIMULATIONPARAMETERS_HPP_
+
+// General includes
+#include "FixedBGSimulationParametersBase.hpp"
+#include "GRParmParse.hpp"
+
+// Problem specific includes:
+#include "InitialScalarData.hpp"
+#include "FRW.hpp"
+
+class SimulationParameters : public FixedBGSimulationParametersBase
+{
+  public:
+    SimulationParameters(GRParmParse &pp) : FixedBGSimulationParametersBase(pp)
+    {
+        // read the problem specific params
+        read_params(pp);
+        check_params();
+    }
+
+    void read_params(GRParmParse &pp)
+    {
+
+        // Initial SF data
+        pp.load("scalar_amplitude", initial_params.amplitude, 0.1);
+        pp.load("scalar_mass", initial_params.mass, 0.1);
+        pp.load("scalar_center", initial_params.center, center);
+
+        // Initial and Kerr data
+        pp.load("frw_rho0", bg_params.rho0, 0.0);
+        pp.load("frw_omega", bg_params.omega, 0.0);
+        pp.load("center", bg_params.center, center);
+
+    }
+
+    void check_params()
+    {
+        warn_parameter("scalar_mass", initial_params.mass,
+                       initial_params.mass < 0.2 / coarsest_dx / dt_multiplier,
+                       "oscillations of scalar field do not appear to be "
+                       "resolved on coarsest level");
+        
+    }
+
+    // Problem specific parameters
+
+    // Collection of parameters necessary for the initial conditions
+    InitialScalarData::params_t initial_params;
+    // Collection of parameters necessary for the background metric
+    FRW::params_t bg_params;
+};
+
+#endif /* SIMULATIONPARAMETERS_HPP_ */
