@@ -41,8 +41,8 @@ scalar_mass = 0.1
 scalar_amplitude = 0.1
 
 
-frw_rho0 = 1.0
-frw_omega = 0.0 # 
+frw_rho0 = 1.0 # Initial energy density
+frw_omega = 0.0 # Equation of state parameter
 
 
 
