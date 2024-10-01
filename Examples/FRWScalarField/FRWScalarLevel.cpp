@@ -65,7 +65,7 @@ void FRWScalarLevel::specificPostTimeStep()
                        disable_simd());
 
     // At any level, but after the min_level timestep
-    int min_level = 0; // TODO: extraction
+    int min_level = 0; 
     bool calculate_diagnostics = at_level_timestep_multiple(min_level);
     if (calculate_diagnostics)
     {

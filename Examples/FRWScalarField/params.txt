@@ -8,17 +8,17 @@ verbosity = 0
 
 # location / naming of output files
 # output_path = "" # Main path for all files. Must exist!
-chk_prefix = KerrBH_
-plot_prefix = KerrBHp_
-# restart_file = KerrBH_000000.3d.hdf5
+chk_prefix = FRW_
+plot_prefix = FRWp_
+# restart_file = FRW_000000.3d.hdf5
 
 # HDF5files are written every dt = L/N*dt_multiplier*checkpoint_interval
 checkpoint_interval = 100
 # set to 0 to turn off plot files (except at t=0 and t=stop_time)
 # set to -1 to never ever print plotfiles
-plot_interval = 10
+plot_interval = 1
 num_plot_vars = 3
-plot_vars = phi rhoEnergy fluxAngMom
+plot_vars = phi scalefac hubbleparam
 
 # subpaths - specific directories for hdf5, pout, extraction data
 # (these are created at runtime)
@@ -40,28 +40,11 @@ print_progress_only_to_rank_0 = 1
 scalar_mass = 0.1
 scalar_amplitude = 0.1
 
-# Boosted BH initial data, boost in x direction
-bh_mass = 1.0
-bh_spin = 0.5 # This is a, so needs to be <= M
 
-################################################
-# Diagnostic extraction parameters
+frw_rho0 = 1.0
+frw_omega = 0.0 # 
 
-# For flux (surface) extraction
-activate_extraction = 1
-# write_extraction = 0
 
-num_extraction_radii = 2
-extraction_levels = 0 0
-extraction_radii = 7.0 110.0
-
-num_points_phi = 36
-num_points_theta = 24
-
-# For volume integrals
-# defaulted to extraction radii values above
-# inner_r = 7.0
-# outer_r = 110.0
 
 #################################################
 # Grid parameters
@@ -73,14 +56,14 @@ num_points_theta = 24
 # NB - if you have a non-cubic grid, you can specify 'N1' or 'N1_full',
 # 'N2' or 'N2_full' and 'N3' or 'N3_full' ( then dx_coarsest = L/N(max) )
 # NB - the N values need to be multiples of the block_factor
-N1 = 128
-N2 = 128
+N1 = 64
+N2 = 64
 N3 = 64
 
-L_full = 512
+L = 64
 
 # Maximum number of times you can regrid above coarsest level
-max_level = 6 # There are (max_level+1) grids, so min is zero
+max_level = 0 # There are (max_level+1) grids, so min is zero
 
 # Frequency of regridding at each level and thresholds on the tagging
 # Need one for each level except the top one, ie max_level items
@@ -102,7 +85,7 @@ tag_buffer_size = 0 # this example uses a fixed grid
 # Boundary Conditions parameters
 
 #Periodic directions - 0 = false, 1 = true
-isPeriodic = 0 0 0
+isPeriodic = 1 1 1
 # if not periodic, then specify the boundary type
 # 0 = static, 1 = sommerfeld, 2 = reflective
 # 3 = extrapolating, 4 = mixed
@@ -139,12 +122,12 @@ extrapolation_order = 0
 
 # dt will be dx*dt_multiplier on each grid level
 dt_multiplier = 0.1
-stop_time = 250.0
+stop_time = 30.0
 # max_steps = 4
 
 nan_check = 1
 
 # coefficient for KO numerical dissipation
-sigma = 0.5
+sigma = 0.3
 
 #################################################
