@@ -7,7 +7,7 @@
 verbosity = 0
 
 # location / naming of output files
-# output_path = "" # Main path for all files. Must exist!
+output_path = "/nfs/st01/hpc-gr-epss/eaf49/PR-dump" # Main path for all files. Must exist!
 chk_prefix = BoostedBH_
 plot_prefix = BoostedBHp_
 # restart_file = BoostedBH_000000.3d.hdf5
@@ -123,6 +123,11 @@ vars_parity            = 0 0 0 0   #phi and Pi (Re and Im)
 vars_parity_diagnostic = 0 0 0     #chi, rhoLinMom and rhoEnergy
 		         0 0 0     #fluxLinMom, fluxEnergy and sourceLinMom
 			 
+# Additionally, if reflective boundaries selected, 
+# choose if symmetry factor will be applied to integrals.
+# 0 = false (default), 1 = true
+symmetry_correction = 1
+
 # if sommerfeld boundaries selected, must select
 # non zero asymptotic values
 num_nonzero_asymptotic_vars = 0
@@ -143,7 +148,7 @@ extrapolation_order = 0
 # dt will be dx*dt_multiplier on each grid level
 dt_multiplier = 0.1
 stop_time = 250.0
-# max_steps = 4
+max_steps = 4
 
 nan_check = 1
 
