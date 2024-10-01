@@ -27,24 +27,11 @@ class FRW
         double rho0; // initial energy density
         double omega; // equation of state parameter = 0 (MD), 1/3 (RD)
         std::array<double, CH_SPACEDIM> center; 
-                           
 
     };
 
     template <class data_t> using Vars = ADMFixedBGVars::Vars<data_t>;
 
-  //  template <class data_t> struct Vars_frw
-   // {
-     //   data_t scalefac;
-       // data_t hubparam;
-
-       // template <typename mapping_function_t>
-        //void enum_mapping(mapping_function_t mapping_function)
-        //{
-          //  VarsTools::define_enum_mapping(mapping_function, c_scalefac, scalefac);
-           // VarsTools::define_enum_mapping(mapping_function, c_hubparam, hubparam);
-       // }
-    //};
 
     const params_t m_params;
 
@@ -62,7 +49,11 @@ class FRW
 
         const Coordinates<data_t> coords(current_cell, m_dx, m_params.center);
         Vars<data_t> metric_vars;
+
+     
         compute_metric_background(metric_vars, coords);
+        
+
 
 
        //Reconstruct FRW quantities to check as diagnostics
@@ -71,12 +62,13 @@ class FRW
 
        current_cell.store_vars(scalefac, c_scalefac);
        current_cell.store_vars(hubbleparam, c_hubbleparam);
+        
+
+       
     }
 
     
-
-    //FRW solution
-
+    //Analytical background
      template <class data_t, template <typename> class vars_t>
     void compute_metric_background(vars_t<data_t> &vars,
                                    const Coordinates<data_t> &coords) const
@@ -97,9 +89,9 @@ class FRW
         FOR(i) vars.d1_lapse[i] = 0.0;
         FOR(i,j) vars.d1_shift[i][j] = 0.0;
 
-        // ds^2 = -dt^2 + a^2 dx_i dx^i assumin flat - TODO: curvature
+        // ds^2 = -dt^2 + a^2 dx_i dx^i assumin flat - TODO: curvature, conformal time
 
-        vars.lapse = 1.0;
+        vars.lapse = 1.0; // Conformal time - a^2
 
         if (m_params.rho0 == 0.0){
 
@@ -135,6 +127,12 @@ class FRW
        
 
     }
+
+
+   
+    
+
+
 
 };
 
