@@ -83,8 +83,7 @@ class FRW
 
             data_t K0 = -sqrt(24.0 * M_PI * m_params.rho0); // Ham constraint
 
-            data_t t0 =
-                -1.0 / ((1.0 + m_params.omega) * K0); // Defining t0 from time evolution of scale factor
+            data_t t0 = -1.0 / ((1.0 + m_params.omega) * K0); // Defining t0 from time evolution of scale factor
 
             if (m_params.omega == -1)
             { // Cosmo constant
