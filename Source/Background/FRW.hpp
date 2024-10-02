@@ -83,8 +83,8 @@ class FRW
 
             data_t K0 = -sqrt(24.0 * M_PI * m_params.rho0); // Ham constraint
 
-            data_t t0 = -1.0 / ((1.0 + m_params.omega) * K0); // Defining t0 from time evolution of scale factor
-
+            // Defining t0 from time evolution of scale factor
+            data_t t0 = -1.0 / ((1.0 + m_params.omega) * K0);
             if (m_params.omega == -1)
             { // Cosmo constant
 
@@ -95,15 +95,19 @@ class FRW
 
             else
             {
+                // Scale factor evolution
+                scalefac =
+                    pow((m_time / t0) + 1, 2 / (3 * (1 + m_params.omega)));
 
-                scalefac = pow((m_time / t0) + 1, 2 / (3 * (1 + m_params.omega))); // Scale factor evolution
-
-                hubparam = 2.0 / (3.0 * (1 + m_params.omega) * (m_time + t0)); // Hubble parameter evolution
+                // Hubble parameter evolution
+                hubparam = 2.0 / (3.0 * (1 + m_params.omega) * (m_time + t0));
             }
 
-            vars.lapse = pow(scalefac,m_params.alpha); // Cosmic time alpha = 0, conformal time alpha = 1
+            // Cosmic time alpha = 0, conformal time alpha = 1
+            vars.lapse = pow(scalefac, m_params.alpha);
 
-            vars.K =-3.0 * hubparam; // K = -3H (not used but included for completeness)
+            // K = -3H (not used but included for completeness)
+            vars.K = -3.0 * hubparam;
 
             FOR(i) vars.gamma[i][i] = pow(scalefac, 2.0); // gamma_ij = a^2
 
