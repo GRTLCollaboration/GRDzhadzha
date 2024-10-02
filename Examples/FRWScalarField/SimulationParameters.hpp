@@ -11,8 +11,8 @@
 #include "GRParmParse.hpp"
 
 // Problem specific includes:
-#include "InitialScalarData.hpp"
 #include "FRW.hpp"
+#include "InitialScalarData.hpp"
 
 class SimulationParameters : public FixedBGSimulationParametersBase
 {
@@ -35,8 +35,8 @@ class SimulationParameters : public FixedBGSimulationParametersBase
         // Initial and Kerr data
         pp.load("frw_rho0", bg_params.rho0, 0.0);
         pp.load("frw_omega", bg_params.omega, 0.0);
+        pp.load("frw_alpha", bg_params.alpha, 0.0);
         pp.load("center", bg_params.center, center);
-
     }
 
     void check_params()
@@ -45,7 +45,6 @@ class SimulationParameters : public FixedBGSimulationParametersBase
                        initial_params.mass < 0.2 / coarsest_dx / dt_multiplier,
                        "oscillations of scalar field do not appear to be "
                        "resolved on coarsest level");
-        
     }
 
     // Problem specific parameters

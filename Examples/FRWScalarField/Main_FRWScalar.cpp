@@ -28,7 +28,7 @@ int runGRChombo(int argc, char *argv[])
     // and an associated LevelFactory)
     GRAMR gr_amr;
     DefaultLevelFactory<FRWScalarLevel> scalar_field_level_fact(gr_amr,
-                                                                   sim_params);
+                                                                sim_params);
     setupAMRObject(gr_amr, scalar_field_level_fact);
 
     // call this after amr object setup so grids known

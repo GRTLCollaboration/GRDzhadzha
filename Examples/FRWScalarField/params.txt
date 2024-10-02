@@ -42,7 +42,8 @@ scalar_amplitude = 0.1
 
 
 frw_rho0 = 1.0 # Initial energy density
-frw_omega = 0.0 # Equation of state parameter
+frw_omega = 0.0 # Background equation of state 
+frw_alpha = 0.0  # = 0 (cosmic time), 1 (conformal time)
 
 
 
