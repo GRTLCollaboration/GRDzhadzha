@@ -122,11 +122,6 @@ lo_boundary = 3 2 2
 vars_parity            = 0 0 0 0   #phi and Pi (Re and Im)
 vars_parity_diagnostic = 0 0 0     #chi, rhoLinMom and rhoEnergy
 		         0 0 0     #fluxLinMom, fluxEnergy and sourceLinMom
-			 
-# Additionally, if reflective boundaries selected, 
-# choose if symmetry factor will be applied to integrals.
-# 0 = false (default), 1 = true
-symmetry_correction = 1
 
 # if sommerfeld boundaries selected, must select
 # non zero asymptotic values
