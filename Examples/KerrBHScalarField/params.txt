@@ -119,7 +119,7 @@ lo_boundary = 1 1 2
 vars_parity            = 0 0 0 0   #phi and Pi (Re and Im)
 vars_parity_diagnostic = 0 0 0     #chi, rhoEnergy and rhoAngMom
 		         0 0 0     #sourceAngMom, fluxAngMom and fluxEnergy
-			 
+
 # if sommerfeld boundaries selected, must select
 # non zero asymptotic values
 num_nonzero_asymptotic_vars = 0

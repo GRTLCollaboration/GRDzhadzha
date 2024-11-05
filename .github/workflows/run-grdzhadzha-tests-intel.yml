@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       CHOMBO_HOME: ${{ github.workspace }}/Chombo/lib
       OMP_NUM_THREADS: 1
@@ -34,12 +34,13 @@ jobs:
         sudo apt-get update
         sudo apt-get -y --no-install-recommends install csh libgetopt-complete-perl
 
-    - name: Install Intel compilers/MPI
+    - name: Install Intel compilers
       run: |
-        wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
-        sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
-        sudo add-apt-repository "deb https://apt.repos.intel.com/oneapi all main"
-        sudo apt-get -y install intel-oneapi-compiler-dpcpp-cpp-and-cpp-classic intel-oneapi-compiler-fortran intel-oneapi-mkl intel-oneapi-mpi intel-oneapi-mpi-devel intel-oneapi-openmp
+        wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB \
+        | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
+        echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+        sudo apt-get update
+        sudo apt-get -y install intel-oneapi-compiler-dpcpp-cpp-and-cpp-classic-2023.2.4 intel-oneapi-compiler-fortran-2023.2.4 intel-oneapi-mkl-2023.2.0 intel-oneapi-openmp-2023.2.4 intel-oneapi-mpi intel-oneapi-mpi-devel
       working-directory: /tmp
 
     - name: Build Chombo
