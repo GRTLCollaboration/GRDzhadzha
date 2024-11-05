@@ -244,7 +244,9 @@ class KerrSchild
   public:
     // used to decide when to excise - ie when within the horizon of the BH
     // note that this is not templated over data_t
-    bool check_if_excised(const Coordinates<double> &coords, const double innerH_buffer = 1.05, const double outerH_buffer = 0.9) const
+    bool check_if_excised(const Coordinates<double> &coords,
+                          const double innerH_buffer = 1.05,
+                          const double outerH_buffer = 0.9) const
     {
         // black hole params - mass M and spin a
         const double M = m_params.mass;
