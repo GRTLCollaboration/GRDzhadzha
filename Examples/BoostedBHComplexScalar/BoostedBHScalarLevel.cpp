@@ -62,7 +62,10 @@ void BoostedBHScalarLevel::specificPostTimeStep()
                        disable_simd());
 
     // At any level, but after the timestep on the minimum extraction level
-    int min_level = m_p.extraction_params.min_extraction_level();
+    int min_level = 0;
+    if (m_p.activate_extraction == 1)
+        min_level = m_p.extraction_params.min_extraction_level();
+
     bool calculate_diagnostics = at_level_timestep_multiple(min_level);
     if (calculate_diagnostics)
     {
@@ -80,15 +83,18 @@ void BoostedBHScalarLevel::specificPostTimeStep()
                        m_state_diagnostics, SKIP_GHOST_CELLS);
 
         // excise within/outside specified radii, no simd
-        BoxLoops::loop(
-            ExcisionDiagnostics<ScalarFieldWithPotential, BoostedBH>(
-                m_dx, m_p.center, boosted_bh, m_p.inner_r, m_p.outer_r),
-            m_state_diagnostics, m_state_diagnostics, SKIP_GHOST_CELLS,
-            disable_simd());
+        if (m_p.activate_excision == 1)
+        {
+            BoxLoops::loop(
+                ExcisionDiagnostics<ScalarFieldWithPotential, BoostedBH>(
+                    m_dx, m_p.center, boosted_bh, m_p.inner_r, m_p.outer_r),
+                m_state_diagnostics, m_state_diagnostics, SKIP_GHOST_CELLS,
+                disable_simd());
+        }
     }
 
     // write out the integral after each timestep on the min_level
-    if (m_p.activate_extraction == 1)
+    if (m_p.activate_excision == 1)
     {
         if (m_level == min_level)
         {
@@ -116,7 +122,13 @@ void BoostedBHScalarLevel::specificPostTimeStep()
                                                  "Lin. Mom. source"});
             }
             integral_file.write_time_data_line(data_for_writing);
+        }
+    }
 
+    if (m_p.activate_extraction == 1)
+    {
+        if (m_level == min_level)
+        {
             // Now refresh the interpolator and do the interpolation
             // only fill the actual ghost cells needed to save time
             bool fill_ghosts = false;
