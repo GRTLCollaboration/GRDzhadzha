@@ -79,6 +79,9 @@ void KerrBHScalarLevel::specificPostTimeStep()
 
     // At any level, but after the min_level timestep
     int min_level = 0.;
+    if (m_p.activate_extraction == 1)
+        min_level = m_p.extraction_params.min_extraction_level();
+
     bool calculate_diagnostics = at_level_timestep_multiple(min_level);
     if (calculate_diagnostics)
     {
@@ -94,7 +97,7 @@ void KerrBHScalarLevel::specificPostTimeStep()
                        m_state_diagnostics, SKIP_GHOST_CELLS);
 
         // excise within/outside specified radii, no simd
-        if (m_p.activate_extraction == 1)
+        if (m_p.activate_excision == 1)
         {
             BoxLoops::loop(
                 ExcisionDiagnostics<ScalarFieldWithPotential, KerrSchild>(
@@ -105,9 +108,8 @@ void KerrBHScalarLevel::specificPostTimeStep()
     }
 
     // write out the integral after each timestep on minimum level
-    if (m_p.activate_extraction == 1)
+    if (m_p.activate_excision == 1)
     {
-        min_level = m_p.extraction_params.min_extraction_level();
         if (m_level == min_level)
         {
             bool first_step = (m_time == m_dt);
@@ -132,8 +134,15 @@ void KerrBHScalarLevel::specificPostTimeStep()
                     {"Energy density", "Ang. Mom. density"});
             }
             integral_file.write_time_data_line(data_for_writing);
+        }
+    }
 
+    if (m_p.activate_extraction == 1)
+    {
+        if (m_level == min_level)
+        {
             // Now refresh the interpolator and do the interpolation
+            // only fill the actual ghost cells needed to save time
             bool fill_ghosts = false;
             m_gr_amr.m_interpolator->refresh(fill_ghosts);
             m_gr_amr.fill_multilevel_ghosts(

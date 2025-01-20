@@ -59,7 +59,9 @@ num_points_phi = 36
 num_points_theta = 24
 
 # For volume integrals
-# defaulted to extraction radii values above
+# Default value is the same as activate_extraction
+# activate_excision = 1
+# By default these are set to the values of the extraction radii above
 # inner_r = 7.0
 # outer_r = 110.0
 

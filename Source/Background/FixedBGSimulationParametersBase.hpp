@@ -46,7 +46,8 @@ class FixedBGSimulationParametersBase : public ChomboParameters
             FilesystemTools::mkdir_recursive(data_path);
 
         // Extraction params
-        pp.load("activate_extraction", activate_extraction, false);
+        pp.load("activate_extraction", activate_extraction, true);
+        pp.load("activate_excision", activate_excision, activate_extraction);
 
         if (activate_extraction)
         {
@@ -97,6 +98,23 @@ class FixedBGSimulationParametersBase : public ChomboParameters
 
             pp.load("write_extraction", extraction_params.write_extraction,
                     false);
+        }
+
+        // For volume extraction and excision of diagnostic variables
+        if (activate_excision)
+        {
+            if (activate_extraction)
+            {
+                pp.load("inner_r", inner_r,
+                        extraction_params.extraction_radii[0]);
+                pp.load("outer_r", outer_r,
+                        extraction_params.extraction_radii[1]);
+            }
+            else
+            {
+                pp.load("inner_r", inner_r, 3.);
+                pp.load("outer_r", outer_r, L / 4.);
+            }
         }
     }
 
@@ -161,6 +179,16 @@ class FixedBGSimulationParametersBase : public ChomboParameters
                     "l must be >= 2 and m must satisfy -l <= m <= l");
             }
         }
+
+        if (activate_extraction && activate_excision)
+        {
+            warn_parameter("inner_r", inner_r,
+                           extraction_params.extraction_radii[0] == inner_r,
+                           "should be equal to first extraction radius");
+            warn_parameter("outer_r", outer_r,
+                           extraction_params.extraction_radii[1] == outer_r,
+                           "should be equal to second extraction radius");
+        }
     }
 
   public:
@@ -168,8 +196,9 @@ class FixedBGSimulationParametersBase : public ChomboParameters
     int nan_check;
 
     // Collection of parameters necessary for the extraction
-    bool activate_extraction;
+    bool activate_extraction, activate_excision;
     spherical_extraction_params_t extraction_params;
+    double inner_r, outer_r;
 
     std::string data_path;
 };

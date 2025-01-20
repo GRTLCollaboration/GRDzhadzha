@@ -36,13 +36,6 @@ class SimulationParameters : public FixedBGSimulationParametersBase
         pp.load("bh_mass", bg_params.mass, 1.0);
         pp.load("bh_spin", bg_params.spin, 0.0);
         pp.load("bh_center", bg_params.center, center);
-
-        // Volume extraction radii
-        if (activate_extraction)
-        {
-            pp.load("inner_r", inner_r, extraction_params.extraction_radii[0]);
-            pp.load("outer_r", outer_r, extraction_params.extraction_radii[1]);
-        }
     }
 
     void check_params()
@@ -53,15 +46,7 @@ class SimulationParameters : public FixedBGSimulationParametersBase
                        "resolved on coarsest level");
         warn_parameter("bh_mass", bg_params.mass, bg_params.mass >= 0.0,
                        "should be >= 0.0");
-        if (activate_extraction)
-        {
-            warn_parameter("inner_r", inner_r,
-                           extraction_params.extraction_radii[0] == inner_r,
-                           "should be equal to first extraction radius");
-            warn_parameter("outer_r", outer_r,
-                           extraction_params.extraction_radii[1] == outer_r,
-                           "should be equal to second extraction radius");
-        }
+
         check_parameter("bh_spin", bg_params.spin,
                         std::abs(bg_params.spin) <= bg_params.mass,
                         "must satisfy |a| <= M = " +
@@ -77,8 +62,6 @@ class SimulationParameters : public FixedBGSimulationParametersBase
         }
     }
 
-    // Problem specific parameters
-    double inner_r, outer_r;
     // Collection of parameters necessary for the initial conditions
     InitialScalarData::params_t initial_params;
     // Collection of parameters necessary for the background metric
